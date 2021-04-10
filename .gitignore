@@ -33,3 +33,5 @@
 
 # QT5 project files
 *.user
+build*/
+*.autosave
