@@ -12,6 +12,8 @@ SOURCES += \
     AddHabitWidget.cpp \
     LoginWidget.cpp \
     MainAppWidget.cpp \
+    main.cpp \
+    mainwindow.cpp \
     Unicorn.cpp \
     User.cpp \
     amounthabit.cpp \
@@ -29,7 +31,6 @@ HEADERS += \
     mainwindow.h \
     amounthabit.h \
     habit.h \
-    mainwindow.h \
     todohabit.h
 
 FORMS += \
