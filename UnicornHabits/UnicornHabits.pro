@@ -11,17 +11,30 @@ CONFIG += c++11
 SOURCES += \
     LoginWidget.cpp \
     MainAppWidget.cpp \
+<<<<<<< Updated upstream
     Unicorn.cpp \
     User.cpp \
+=======
+    amounthabit.cpp \
+    habit.cpp \
+>>>>>>> Stashed changes
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    todohabit.cpp
 
 HEADERS += \
     LoginWidget.h \
     MainAppWidget.h \
+<<<<<<< Updated upstream
     Unicorn.h \
     User.h \
     mainwindow.h
+=======
+    amounthabit.h \
+    habit.h \
+    mainwindow.h \
+    todohabit.h
+>>>>>>> Stashed changes
 
 FORMS += \
     LoginWidget.ui \
