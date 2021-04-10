@@ -75,7 +75,7 @@ void MainAppWidget::acceptHabit(std::shared_ptr<Habit> habit)
         addPowerPoints(habit->getValue());
         }
         else
-         QMessageBox::information(this, "Come back tomorrow","You have done this task this week");
+         QMessageBox::information(this, "Come back next week","You have done this task this week");
     }
 
 
