@@ -63,24 +63,24 @@ void MainAppWidget::acceptHabit(std::shared_ptr<Habit> habit)
 {
     if(habit->getRepeatPeriod().empty()){
         removeHabit(habit);
-    addPowerPoints(habit->getValue());
+        addPowerPoints(habit->getValue());
     }
     else if(habit->getRepeatPeriod() == "Everyday"){
         if(QDateTime::currentDateTime().daysTo(habit->getTime())<=1){
-        habit->setTime(habit->getTime().addDays(1));
-        addPowerPoints(habit->getValue());
+            habit->setTime(habit->getTime().addDays(1));
+            addPowerPoints(habit->getValue());
         }
         else
-         QMessageBox::information(this, "Come back tomorrow","You have done this task today");
+            QMessageBox::information(this, "Come back tomorrow","You have done this task today");
     }
     else if(habit->getRepeatPeriod() == "Everyweek"){
 
         if(QDateTime::currentDateTime().daysTo(habit->getTime())<=7){
-         habit->setTime(habit->getTime().addDays(7));
-        addPowerPoints(habit->getValue());
+            habit->setTime(habit->getTime().addDays(7));
+            addPowerPoints(habit->getValue());
         }
         else
-         QMessageBox::information(this, "Come back next week","You have done this task this week");
+            QMessageBox::information(this, "Come back next week","You have done this task this week");
     }
 
 
@@ -89,7 +89,10 @@ void MainAppWidget::acceptHabit(std::shared_ptr<Habit> habit)
 
 void MainAppWidget::addPowerPoints(int points)
 {
-    ui->powerProgress->setValue(ui->powerProgress->value() + points);
+    Unicorn *unicorn = user->getUnicorn();
+    unicorn->addPower(points);
+
+    ui->powerProgress->setValue(unicorn->getPower());
 }
 
 void MainAppWidget::checkIfExpired()
@@ -106,13 +109,13 @@ void MainAppWidget::checkIfExpired()
                                                             "finished your "
                                                             "task on time: " + habit->getName()));
             if(habit->getRepeatPeriod().empty())
-            removeHabit(habit);
+                removeHabit(habit);
             else if(habit->getRepeatPeriod()=="Everyday")
-                 habit->setTime(habit->getTime().addDays(1));
+                habit->setTime(habit->getTime().addDays(1));
             else if(habit->getRepeatPeriod()=="Everyweek")
                 habit->setTime(habit->getTime().addDays(7));
-             updateHabits();
 
+            updateHabits();
             addPowerPoints(-habit->getValue());
         }
     }

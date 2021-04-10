@@ -24,6 +24,7 @@ public:
     ~HabitWidget();
 
     std::shared_ptr<Habit> getHabit() const;
+    void refresh();
 
 signals:
     void habitDone(std::shared_ptr<Habit> habit);

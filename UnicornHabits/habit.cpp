@@ -18,12 +18,12 @@ Habit::~Habit(){
 
 std::string Habit::getDetails()
 {
-    return name + ": " + description;
+    return name + ": " + description + "\n" + getTime().toString().toStdString();
 }
 
 bool Habit::hasExpired()
 {
-    return false;
+    return QDateTime::currentDateTime() >= getTime();
 }
 
 std::string Habit::getDescription(){

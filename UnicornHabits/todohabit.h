@@ -20,10 +20,6 @@ public:
 
     int getValue() override final;
     ~TodoHabit() override;
-
-    virtual std::string getDetails() override;
-    virtual bool hasExpired() override;
-
 };
 
 #endif // TODOHABIT_H

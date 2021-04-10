@@ -87,9 +87,6 @@ void AddHabitWidget::on_habitType_currentTextChanged(const QString &arg1)
 
         ui->amountLabel->hide();
         ui->amount->hide();
-
-        ui->deadlineLabel->show();
-        ui->deadline->show();
     }
     else
     {
@@ -98,9 +95,6 @@ void AddHabitWidget::on_habitType_currentTextChanged(const QString &arg1)
 
         ui->amountLabel->show();
         ui->amount->show();
-
-        ui->deadlineLabel->hide();
-        ui->deadline->hide();
     }
 }
 

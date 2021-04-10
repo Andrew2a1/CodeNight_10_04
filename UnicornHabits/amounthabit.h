@@ -13,7 +13,8 @@ enum class HabitType{
 class AmountHabit final : public Habit
 {
 private:
-    int amount;
+    float amount;
+    float defaultAmount;
     HabitType habitType;
 
 public:
@@ -22,7 +23,7 @@ public:
                 std::string _name,
                 std::string _repeatPeriod,
                 QDateTime _time,
-                int _amount,
+                float _amount,
                 HabitType _habitType);
 
     ~AmountHabit() override;
@@ -32,8 +33,12 @@ public:
     virtual std::string getDetails() override;
 
     int getValue() override final;
-    int getAmount();
-    void setAmount(int);
+
+    float getAmount();
+    void setAmount(float);
+
+    void resetToDefault();
+
     HabitType getHabitType();
     void setHabitType(HabitType);
 };

@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     AddHabitWidget.cpp \
+    HabitSerializer.cpp \
     HabitWidget.cpp \
     HabitWidgetContainer.cpp \
     LoginWidget.cpp \
@@ -25,6 +26,7 @@ SOURCES += \
 
 HEADERS += \
     AddHabitWidget.h \
+    HabitSerializer.h \
     HabitWidget.h \
     HabitWidgetContainer.h \
     LoginWidget.h \

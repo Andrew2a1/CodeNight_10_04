@@ -8,7 +8,7 @@ class Unicorn
 private:
     QString skin;
     QString background;
-    int power;
+    int power = 0;
 
 public:
     int getPower();

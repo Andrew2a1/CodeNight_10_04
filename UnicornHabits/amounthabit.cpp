@@ -1,13 +1,15 @@
 #include "amounthabit.h"
-
+#include <QString>
 
 AmountHabit::AmountHabit(std::string _description,
                          std::string _name,
                          std::string _repeatPeriod,
                          QDateTime _time,
-                         int _amount,HabitType _habitType):
+                         float _amount,
+                         HabitType _habitType):
     Habit(_description,_name,_repeatPeriod, _time),
     amount(_amount),
+    defaultAmount(_amount),
     habitType(_habitType)
 {
 
@@ -15,17 +17,23 @@ AmountHabit::AmountHabit(std::string _description,
 
 std::string AmountHabit::getDetails()
 {
-    return Habit::getDetails() + "\n" + "amount: " + std::to_string(amount);
+    return Habit::getDetails() + "\n" +
+            "amount: " + QString::number(amount).toStdString();
 }
 
 AmountHabit::~AmountHabit(){}
 
 
-int AmountHabit:: getAmount(){
+float AmountHabit:: getAmount(){
     return amount;
 }
-void AmountHabit::setAmount(int _amount){
-amount=_amount;
+void AmountHabit::setAmount(float _amount){
+    amount=_amount;
+}
+
+void AmountHabit::resetToDefault()
+{
+    amount = defaultAmount;
 }
 
 HabitType AmountHabit::getHabitType(){
@@ -35,6 +43,8 @@ void  AmountHabit::setHabitType(HabitType _habitType)
 {
     habitType=_habitType;
 }
-int AmountHabit::getValue(){
+
+int AmountHabit::getValue()
+{
     return 1;
 }
