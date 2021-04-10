@@ -16,6 +16,7 @@ class HabitWidgetContainer : public QWidget
     Q_OBJECT
 
 private:
+    Ui::HabitWidgetContainer *ui;
     QList<HabitWidget*> widgets;
 
 public:
@@ -27,9 +28,11 @@ public:
 
 signals:
     void habitFinished(std::shared_ptr<Habit> habit);
+    void requestRemove(std::shared_ptr<Habit> habit);
 
-private:
-    Ui::HabitWidgetContainer *ui;
+protected:
+    void contextMenuEvent(QContextMenuEvent *event) override;
+
 };
 
 #endif // HABITWIDGETCONTAINER_H

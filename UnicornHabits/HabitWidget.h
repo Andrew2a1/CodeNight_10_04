@@ -23,6 +23,8 @@ public:
                          QWidget *parent = nullptr);
     ~HabitWidget();
 
+    std::shared_ptr<Habit> getHabit() const;
+
 signals:
     void habitDone(std::shared_ptr<Habit> habit);
 

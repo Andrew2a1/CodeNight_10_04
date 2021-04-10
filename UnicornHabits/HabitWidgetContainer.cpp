@@ -1,6 +1,9 @@
 #include "HabitWidgetContainer.h"
 #include "ui_HabitWidgetContainer.h"
 
+#include <QMenu>
+#include <QContextMenuEvent>
+
 HabitWidgetContainer::HabitWidgetContainer(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::HabitWidgetContainer)
@@ -26,8 +29,28 @@ void HabitWidgetContainer::addHabit(std::shared_ptr<Habit> habit)
 
 void HabitWidgetContainer::clear()
 {
-    for(const auto& widget: widgets)
+    std::for_each(widgets.begin(), widgets.end(),
+                  [](HabitWidget* widget)
+    {
         widget->deleteLater();
+    });
 
     widgets.clear();
+}
+
+void HabitWidgetContainer::contextMenuEvent(QContextMenuEvent *event)
+{
+    QMenu *contextMenu = new QMenu(this);
+    HabitWidget* habitWidget = qobject_cast<HabitWidget*>(this->childAt(event->pos()));
+
+    if(habitWidget)
+    {
+        contextMenu->addAction("Remove", this,
+                               [=](){
+            emit requestRemove(habitWidget->getHabit());
+        });
+    }
+
+    contextMenu->popup(event->globalPos());
+    QWidget::contextMenuEvent(event);
 }

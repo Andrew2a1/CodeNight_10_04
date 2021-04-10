@@ -6,7 +6,6 @@
 #include "amounthabit.h"
 
 #include <memory>
-
 #include <QMessageBox>
 
 HabitType fromString(const QString &habitStr)

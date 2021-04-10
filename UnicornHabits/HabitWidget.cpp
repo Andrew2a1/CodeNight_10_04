@@ -21,9 +21,15 @@ HabitWidget::~HabitWidget()
     delete ui;
 }
 
+std::shared_ptr<Habit> HabitWidget::getHabit() const
+{
+    return habit;
+}
+
 void HabitWidget::mousePressEvent(QMouseEvent *event)
 {
-    if(event->type() == QEvent::MouseButtonPress)
+    if(event->type() == QEvent::MouseButtonPress &&
+            event->button() == Qt::LeftButton)
     {
         QMessageBox::StandardButton reply;
         reply = QMessageBox::question(this, "Question", "Finished?",

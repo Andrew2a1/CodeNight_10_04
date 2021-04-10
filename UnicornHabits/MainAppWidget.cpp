@@ -24,6 +24,9 @@ MainAppWidget::MainAppWidget(QWidget *parent) :
     connect(ui->habits, &HabitWidgetContainer::habitFinished,
             this, &MainAppWidget::acceptHabit);
 
+    connect(ui->habits, &HabitWidgetContainer::requestRemove,
+            this, &MainAppWidget::removeHabit);
+
     timer->start();
 }
 
