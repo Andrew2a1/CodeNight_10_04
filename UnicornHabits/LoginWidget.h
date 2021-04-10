@@ -23,6 +23,9 @@ public:
     void setMainWindow(MainWindow *mainWindow);
     void setDefaultUserName(const QString &username);
 
+signals:
+    void loginPressed(const QString &username);
+
 private slots:
     void on_loginBtn_clicked();
 

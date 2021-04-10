@@ -3,10 +3,11 @@
 
 #include <QMainWindow>
 
+#include "User.h"
+#include "habit.h"
+
 #include "LoginWidget.h"
 #include "MainAppWidget.h"
-
-#include "User.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,16 +18,19 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 private:
-    LoginWidget *loginWidget = nullptr;
-    MainAppWidget *mainWidget = nullptr;
+    LoginWidget *loginWidget;
+    MainAppWidget *mainWidget;
 
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
 public slots:
-    void switchToMainWidget(User* user);
-    void switchToLoginWidget(const QString &lastUserName = "");
+    void addHabit(Habit *habit);
+
+private slots:
+    void login(const QString &username);
+    void createHabitWidget();
 
 private:
     Ui::MainWindow *ui;

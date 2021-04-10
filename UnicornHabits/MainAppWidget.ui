@@ -57,7 +57,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="addHabitBtn">
        <property name="font">
         <font>
          <pointsize>12</pointsize>
@@ -87,12 +87,20 @@
       </widget>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="habits"/>
+      <widget class="HabitWidgetContainer" name="habits" native="true"/>
      </item>
     </layout>
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>HabitWidgetContainer</class>
+   <extends>QWidget</extends>
+   <header>HabitWidgetContainer.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

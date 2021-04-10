@@ -11,7 +11,7 @@
  std::string Habit::getDescription(){
      return description;
  }
- std::string Habit::getName(){
+ std::string Habit::getName() const {
 return name;
  }
  std::string Habit::getRepeatPeriod(){

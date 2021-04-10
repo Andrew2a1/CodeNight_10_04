@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui svg
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -10,22 +10,26 @@ CONFIG += c++11
 
 SOURCES += \
     AddHabitWidget.cpp \
+    HabitWidget.cpp \
+    HabitWidgetContainer.cpp \
     LoginWidget.cpp \
     MainAppWidget.cpp \
-    main.cpp \
+    SvgWidget.cpp \
     mainwindow.cpp \
     Unicorn.cpp \
     User.cpp \
     amounthabit.cpp \
     habit.cpp \
     main.cpp \
-    mainwindow.cpp \
     todohabit.cpp
 
 HEADERS += \
     AddHabitWidget.h \
+    HabitWidget.h \
+    HabitWidgetContainer.h \
     LoginWidget.h \
     MainAppWidget.h \
+    SvgWidget.h \
     Unicorn.h \
     User.h \
     mainwindow.h \
@@ -35,6 +39,8 @@ HEADERS += \
 
 FORMS += \
     AddHabitWidget.ui \
+    HabitWidget.ui \
+    HabitWidgetContainer.ui \
     LoginWidget.ui \
     MainAppWidget.ui \
     mainwindow.ui
@@ -43,3 +49,6 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    resources/res.qrc

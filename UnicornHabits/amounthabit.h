@@ -4,15 +4,15 @@
 
 #include "habit.h"
 
+enum class HabitType{
+    Time,
+    Calories,
+    Volume
+};
 
 class AmountHabit final : public Habit
 {
 private:
-    enum class HabitType{
-        Time,
-        Calories,
-        Volume
-    };
     int amount;
     HabitType habitType;
 public:

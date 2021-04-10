@@ -9,6 +9,8 @@ LoginWidget::LoginWidget(QWidget *parent) :
     ui(new Ui::LoginWidget)
 {
     ui->setupUi(this);
+    ui->logo->load(QString(":/icons/UnicornHabitsIcon.SVG"));
+    ui->gridLayout->setAlignment(ui->logo, Qt::AlignCenter);
 }
 
 LoginWidget::~LoginWidget()
@@ -28,8 +30,5 @@ void LoginWidget::setDefaultUserName(const QString &username)
 
 void LoginWidget::on_loginBtn_clicked()
 {
-    if(mainWindow) {
-        User *user = new User(ui->userName->text());
-        mainWindow->switchToMainWidget(user);
-    }
+    emit loginPressed(ui->userName->text());
 }

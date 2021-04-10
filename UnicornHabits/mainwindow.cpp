@@ -1,12 +1,29 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "AddHabitWidget.h"
+
+#include <QtDebug>
+#include <memory>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    switchToLoginWidget();
+
+    loginWidget = new LoginWidget(this);
+    mainWidget = new MainAppWidget(this);
+
+    ui->stackedWidget->addWidget(loginWidget);
+    ui->stackedWidget->addWidget(mainWidget);
+
+    ui->stackedWidget->setCurrentWidget(loginWidget);
+
+    connect(loginWidget, &LoginWidget::loginPressed,
+            this, &MainWindow::login);
+
+    connect(mainWidget, &MainAppWidget::btnAddHabitPressed,
+            this, &MainWindow::createHabitWidget);
 }
 
 MainWindow::~MainWindow()
@@ -14,26 +31,34 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::switchToMainWidget(User *user)
+void MainWindow::addHabit(Habit *habit)
 {
-    if(loginWidget) {
-        loginWidget->deleteLater();
-        loginWidget = nullptr;
-    }
+    if(habit == nullptr)
+        return;
 
-    if(!mainWidget) {
-        mainWidget = new MainAppWidget(this);
-        mainWidget->setUser(user);
-    }
-
-    setCentralWidget(mainWidget);
+    std::shared_ptr<Habit> habitPtr(habit);
+    mainWidget->addHabit(habitPtr);
+    mainWidget->updateHabits();
 }
 
-void MainWindow::switchToLoginWidget(const QString &lastUserName)
+void MainWindow::login(const QString &username)
 {
-    loginWidget = new LoginWidget(this);
-    loginWidget->setMainWindow(this);
-    loginWidget->setDefaultUserName(lastUserName);
+    mainWidget->setUser(new User(username));
+    ui->stackedWidget->setCurrentWidget(mainWidget);
+}
 
-    setCentralWidget(loginWidget);
+void MainWindow::createHabitWidget()
+{
+    AddHabitWidget* addHabitWidget = new AddHabitWidget(this);
+    ui->stackedWidget->addWidget(addHabitWidget);
+    ui->stackedWidget->setCurrentWidget(addHabitWidget);
+
+    connect(addHabitWidget, &AddHabitWidget::habitCreated,
+            this, &MainWindow::addHabit);
+
+    connect(addHabitWidget, &AddHabitWidget::habitCreated,
+            this,
+            [=](){
+        ui->stackedWidget->setCurrentWidget(mainWidget);
+    });
 }

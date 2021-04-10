@@ -3,6 +3,9 @@
 
 #include <QWidget>
 #include "User.h"
+#include "habit.h"
+
+class MainWindow;
 
 namespace Ui {
 class MainAppWidget;
@@ -13,6 +16,7 @@ class MainAppWidget : public QWidget
     Q_OBJECT
 
 private:
+    Ui::MainAppWidget *ui;
     User *user = nullptr;
 
 public:
@@ -20,9 +24,18 @@ public:
     ~MainAppWidget();
 
     void setUser(User *user);
+    void addHabit(std::shared_ptr<Habit> habit);
 
-private:
-    Ui::MainAppWidget *ui;
+public slots:
+    void updateHabits();
+    void addPowerPoints(int points);
+
+signals:
+    void btnAddHabitPressed();
+
+private slots:
+    void on_addHabitBtn_clicked();
+
 };
 
 #endif // MAINAPPWIDGET_H

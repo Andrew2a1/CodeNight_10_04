@@ -13,7 +13,8 @@ int AmountHabit:: getAmount(){
 void AmountHabit::setAmount(int _amount){
 amount=_amount;
 }
-AmountHabit::HabitType AmountHabit::getHabitType(){
+
+HabitType AmountHabit::getHabitType(){
     return habitType;
 }
 void  AmountHabit::setHabitType(HabitType _habitType)
