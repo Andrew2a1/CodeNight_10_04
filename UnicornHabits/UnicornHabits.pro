@@ -9,6 +9,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    AddHabitWidget.cpp \
     LoginWidget.cpp \
     MainAppWidget.cpp \
     Unicorn.cpp \
@@ -17,6 +18,7 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
+    AddHabitWidget.h \
     LoginWidget.h \
     MainAppWidget.h \
     Unicorn.h \
@@ -24,6 +26,7 @@ HEADERS += \
     mainwindow.h
 
 FORMS += \
+    AddHabitWidget.ui \
     LoginWidget.ui \
     MainAppWidget.ui \
     mainwindow.ui

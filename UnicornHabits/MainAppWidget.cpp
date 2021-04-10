@@ -4,7 +4,6 @@
 #include <QLabel>
 #include <QVBoxLayout>
 
-
 MainAppWidget::MainAppWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::MainAppWidget)
