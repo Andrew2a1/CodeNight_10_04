@@ -8,6 +8,16 @@
 
  }
 
+ std::string Habit::getDetails()
+ {
+     return name + ": " + description;
+ }
+
+ bool Habit::hasExpired()
+ {
+    return false;
+ }
+
  std::string Habit::getDescription(){
      return description;
  }

@@ -5,20 +5,29 @@
 #include "habit.h"
 #include <QDateTime>
 
- class TodoHabit final : public Habit
+class TodoHabit final : public Habit
 {
 private:
-QDateTime time;
+    QDateTime time;
+
 public:
     TodoHabit()=delete;
-    TodoHabit(std::string _description,std::string _name,std::string _repeatPeriod,QDateTime _time);
+    TodoHabit(std::string _description,
+              std::string _name,
+              std::string _repeatPeriod,
+              QDateTime _time);
+
     TodoHabit(const TodoHabit&) = delete;
     TodoHabit& operator=(const TodoHabit&) = delete;
+
     int getValue() override final;
     ~TodoHabit() override;
+
+    virtual std::string getDetails() override;
+    virtual bool hasExpired() override;
+
     QDateTime getTime();
     void setTime(QDateTime _time);
-
 };
 
 #endif // TODOHABIT_H

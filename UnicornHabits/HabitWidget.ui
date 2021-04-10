@@ -57,14 +57,14 @@
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="descLabel">
+       <widget class="QLabel" name="repeatLabel">
         <property name="font">
          <font>
           <pointsize>12</pointsize>
          </font>
         </property>
         <property name="text">
-         <string>Description</string>
+         <string/>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>

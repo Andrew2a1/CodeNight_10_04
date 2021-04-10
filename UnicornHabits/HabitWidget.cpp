@@ -12,8 +12,8 @@ HabitWidget::HabitWidget(std::shared_ptr<Habit> habit,
 {
     ui->setupUi(this);
 
-    ui->nameLabel->setText(QString::fromStdString(habit->getName()));
-    ui->descLabel->setText(QString::fromStdString(habit->getDescription()));
+    ui->nameLabel->setText(QString::fromStdString(habit->getDetails()));
+    ui->repeatLabel->setText(QString::fromStdString(habit->getRepeatPeriod()));
 }
 
 HabitWidget::~HabitWidget()

@@ -8,9 +8,21 @@ int TodoHabit::getValue(){
     return 1;
 }
 TodoHabit::~TodoHabit(){}
+
+std::string TodoHabit::getDetails()
+{
+    return Habit::getDetails() + "\n" + time.toString().toStdString();
+}
+
+bool TodoHabit::hasExpired()
+{
+   return QDateTime::currentDateTime() >= time;
+}
+
 QDateTime TodoHabit::getTime(){
     return time;
 }
+
 void TodoHabit::setTime(QDateTime _time){
     time=_time;
 }

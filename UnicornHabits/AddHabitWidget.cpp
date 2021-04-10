@@ -7,6 +7,8 @@
 
 #include <memory>
 
+#include <QMessageBox>
+
 HabitType fromString(const QString &habitStr)
 {
     if(habitStr == "Time")
@@ -23,6 +25,8 @@ AddHabitWidget::AddHabitWidget(QWidget *parent) :
     ui(new Ui::AddHabitWidget)
 {
     ui->setupUi(this);
+    ui->deadline->setDateTime(QDateTime::currentDateTime().addDays(1));
+
     on_habitType_currentTextChanged("Todo");
     on_shouldRepeat_toggled(false);
 }
@@ -42,8 +46,18 @@ void AddHabitWidget::on_okBtn_clicked()
 
     if(ui->habitType->currentText() == "Todo")
     {
+        QDateTime selectedDateTime = ui->deadline->dateTime();
+        if(selectedDateTime < QDateTime::currentDateTime() &&
+                ui->shouldRepeat->isEnabled())
+        {
+            QMessageBox::warning(this, "Warning",
+                                 "Deadline is set to date before current date");
+
+            return;
+        }
+
         habit = new TodoHabit(habitDesc, habitName,
-                              period, ui->deadline->dateTime());
+                              period, selectedDateTime);
     }
     else
     {
