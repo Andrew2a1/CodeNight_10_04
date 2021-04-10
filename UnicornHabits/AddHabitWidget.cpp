@@ -42,7 +42,7 @@ void AddHabitWidget::on_okBtn_clicked()
 
     std::string habitName = ui->habitName->text().toStdString();
     std::string habitDesc = ui->habitDescription->text().toStdString();
-    std::string period = ui->repeatPeriod->text().toStdString();
+    std::string period = ui->repeatPeriod->currentText().toStdString();
 
     if(ui->habitType->currentText() == "Todo")
     {

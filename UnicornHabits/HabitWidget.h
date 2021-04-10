@@ -24,7 +24,7 @@ public:
     ~HabitWidget();
 
 signals:
-    void habitDone(int powerPoints);
+    void habitDone(std::shared_ptr<Habit> habit);
 
 protected:
     void mousePressEvent(QMouseEvent *event) override;

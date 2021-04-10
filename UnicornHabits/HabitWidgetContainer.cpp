@@ -18,7 +18,7 @@ void HabitWidgetContainer::addHabit(std::shared_ptr<Habit> habit)
     HabitWidget *habitWidget = new HabitWidget(habit, this);
 
     connect(habitWidget, &HabitWidget::habitDone,
-            this, &HabitWidgetContainer::powerPointsAdded);
+            this, &HabitWidgetContainer::habitFinished);
 
     ui->gridLayout->addWidget(habitWidget);
     widgets.append(habitWidget);

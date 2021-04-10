@@ -30,7 +30,7 @@ void HabitWidget::mousePressEvent(QMouseEvent *event)
                                       QMessageBox::Yes | QMessageBox::No);
 
         if (reply == QMessageBox::Yes) {
-            emit habitDone(habit->getValue());
+            emit habitDone(habit);
         }
     }
 

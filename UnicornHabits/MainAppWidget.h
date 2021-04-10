@@ -2,6 +2,8 @@
 #define MAINAPPWIDGET_H
 
 #include <QWidget>
+#include <QTimer>
+
 #include "User.h"
 #include "habit.h"
 
@@ -17,6 +19,7 @@ class MainAppWidget : public QWidget
 
 private:
     Ui::MainAppWidget *ui;
+    QTimer *timer;
     User *user = nullptr;
 
 public:
@@ -25,10 +28,13 @@ public:
 
     void setUser(User *user);
     void addHabit(std::shared_ptr<Habit> habit);
+    void removeHabit(std::shared_ptr<Habit> habit);
 
 public slots:
     void updateHabits();
+    void acceptHabit(std::shared_ptr<Habit> habit);
     void addPowerPoints(int points);
+    void checkIfExpired();
 
 signals:
     void btnAddHabitPressed();

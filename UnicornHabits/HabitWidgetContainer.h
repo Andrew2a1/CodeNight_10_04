@@ -26,7 +26,7 @@ public:
     void clear();
 
 signals:
-    void powerPointsAdded(int points);
+    void habitFinished(std::shared_ptr<Habit> habit);
 
 private:
     Ui::HabitWidgetContainer *ui;

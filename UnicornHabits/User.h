@@ -21,6 +21,7 @@ public:
     const QString &getName();
 
     void addHabit(std::shared_ptr<Habit> habit);
+    void removeHabit(std::shared_ptr<Habit> habit);
     const QList<std::shared_ptr<Habit> > &getHabits() const;
 };
 
