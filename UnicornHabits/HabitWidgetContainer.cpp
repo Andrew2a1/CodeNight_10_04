@@ -23,7 +23,7 @@ void HabitWidgetContainer::addHabit(std::shared_ptr<Habit> habit)
     connect(habitWidget, &HabitWidget::habitDone,
             this, &HabitWidgetContainer::habitFinished);
 
-    ui->gridLayout->addWidget(habitWidget);
+    ui->gridLayout->addWidget(habitWidget, 0, ui->gridLayout->columnCount());
     widgets.append(habitWidget);
 }
 
