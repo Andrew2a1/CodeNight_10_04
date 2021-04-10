@@ -1,39 +1,56 @@
 #include "habit.h"
 
- Habit::Habit(std::string _description,std::string _name,std::string _repeatPeriod):description(_description),name(_name),repeatPeriod(_repeatPeriod){
+Habit::Habit(std::string _description,
+             std::string _name,
+             std::string _repeatPeriod,
+             QDateTime _time):
+    description(_description),
+    name(_name),
+    repeatPeriod(_repeatPeriod),
+    time(_time)
+{
 
- };
+};
 
- Habit::~Habit(){
+Habit::~Habit(){
 
- }
+}
 
- std::string Habit::getDetails()
- {
-     return name + ": " + description;
- }
+std::string Habit::getDetails()
+{
+    return name + ": " + description;
+}
 
- bool Habit::hasExpired()
- {
+bool Habit::hasExpired()
+{
     return false;
- }
+}
 
- std::string Habit::getDescription(){
-     return description;
- }
- std::string Habit::getName() const {
-return name;
- }
- std::string Habit::getRepeatPeriod(){
-return repeatPeriod;
- }
- void Habit::setDescription(std::string _description){
-description=_description;
- }
- void Habit::setName(std::string _name){
-     name=_name;
+std::string Habit::getDescription(){
+    return description;
+}
+std::string Habit::getName() const {
+    return name;
+}
+std::string Habit::getRepeatPeriod(){
+    return repeatPeriod;
+}
+void Habit::setDescription(std::string _description){
+    description=_description;
+}
+void Habit::setName(std::string _name){
+    name=_name;
 
- }
- void Habit::setRepeatPeriod(std::string _repeatPeriod){
-repeatPeriod=_repeatPeriod;
- }
+}
+void Habit::setRepeatPeriod(std::string _repeatPeriod){
+    repeatPeriod=_repeatPeriod;
+}
+
+QDateTime Habit::getTime(){
+    return time;
+}
+
+void Habit::setTime(QDateTime _time){
+    time=_time;
+}
+

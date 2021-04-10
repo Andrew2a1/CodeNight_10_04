@@ -44,25 +44,30 @@ void AddHabitWidget::on_okBtn_clicked()
     std::string habitDesc = ui->habitDescription->text().toStdString();
     std::string period = ui->repeatPeriod->currentText().toStdString();
 
+    if(!ui->repeatPeriod->isEnabled())
+        period = "";
+
+    QDateTime selectedDateTime = ui->deadline->dateTime();
+
+    if(selectedDateTime < QDateTime::currentDateTime() &&
+            ui->shouldRepeat->isEnabled())
+    {
+        QMessageBox::warning(this, "Warning",
+                             "Deadline is set to date before current date");
+
+        return;
+    }
+
     if(ui->habitType->currentText() == "Todo")
     {
-        QDateTime selectedDateTime = ui->deadline->dateTime();
-        if(selectedDateTime < QDateTime::currentDateTime() &&
-                ui->shouldRepeat->isEnabled())
-        {
-            QMessageBox::warning(this, "Warning",
-                                 "Deadline is set to date before current date");
-
-            return;
-        }
-
         habit = new TodoHabit(habitDesc, habitName,
                               period, selectedDateTime);
     }
     else
     {
         habit = new AmountHabit(habitDesc, habitName,
-                                period, ui->amount->value(),
+                                period, selectedDateTime,
+                                ui->amount->value(),
                                 fromString(ui->units->currentText()));
     }
 

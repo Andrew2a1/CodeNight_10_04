@@ -18,7 +18,13 @@ private:
 
 public:
     AmountHabit()=delete;
-    AmountHabit(std::string _description,std::string _name,std::string _repeatPeriod,int _amount,HabitType _habitType);
+    AmountHabit(std::string _description,
+                std::string _name,
+                std::string _repeatPeriod,
+                QDateTime _time,
+                int _amount,
+                HabitType _habitType);
+
     ~AmountHabit() override;
 
     AmountHabit(const AmountHabit&) = delete;

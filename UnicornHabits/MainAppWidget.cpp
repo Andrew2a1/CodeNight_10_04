@@ -58,10 +58,15 @@ void MainAppWidget::updateHabits()
 
 void MainAppWidget::acceptHabit(std::shared_ptr<Habit> habit)
 {
-    addPowerPoints(habit->getValue());
-
     if(habit->getRepeatPeriod().empty())
         removeHabit(habit);
+    else if(habit->getRepeatPeriod() == "Everyday")
+        habit->setTime(habit->getTime().addDays(1));
+    else if(habit->getRepeatPeriod() == "Everyweek")
+        habit->setTime(habit->getTime().addDays(7));
+
+    addPowerPoints(habit->getValue());
+    updateHabits();
 }
 
 void MainAppWidget::addPowerPoints(int points)

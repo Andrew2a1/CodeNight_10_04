@@ -7,8 +7,6 @@
 
 class TodoHabit final : public Habit
 {
-private:
-    QDateTime time;
 
 public:
     TodoHabit()=delete;
@@ -26,8 +24,6 @@ public:
     virtual std::string getDetails() override;
     virtual bool hasExpired() override;
 
-    QDateTime getTime();
-    void setTime(QDateTime _time);
 };
 
 #endif // TODOHABIT_H

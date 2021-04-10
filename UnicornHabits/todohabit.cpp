@@ -1,6 +1,11 @@
 #include "todohabit.h"
 
-TodoHabit::TodoHabit(std::string _description,std::string _name,std::string _repeatPeriod,QDateTime _time):Habit(_description,_name,_repeatPeriod),time(_time){
+TodoHabit::TodoHabit(std::string _description,
+                     std::string _name,
+                     std::string _repeatPeriod,
+                     QDateTime _time):
+    Habit(_description, _name, _repeatPeriod, _time)
+{
 
 }
 
@@ -11,18 +16,10 @@ TodoHabit::~TodoHabit(){}
 
 std::string TodoHabit::getDetails()
 {
-    return Habit::getDetails() + "\n" + time.toString().toStdString();
+    return Habit::getDetails() + "\n" + getTime().toString().toStdString();
 }
 
 bool TodoHabit::hasExpired()
 {
-   return QDateTime::currentDateTime() >= time;
-}
-
-QDateTime TodoHabit::getTime(){
-    return time;
-}
-
-void TodoHabit::setTime(QDateTime _time){
-    time=_time;
+   return QDateTime::currentDateTime() >= getTime();
 }

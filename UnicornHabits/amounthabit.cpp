@@ -1,7 +1,15 @@
 #include "amounthabit.h"
 
 
-AmountHabit::AmountHabit(std::string _description,std::string _name,std::string _repeatPeriod,int _amount,HabitType _habitType):Habit(_description,_name,_repeatPeriod),amount(_amount),habitType(_habitType){
+AmountHabit::AmountHabit(std::string _description,
+                         std::string _name,
+                         std::string _repeatPeriod,
+                         QDateTime _time,
+                         int _amount,HabitType _habitType):
+    Habit(_description,_name,_repeatPeriod, _time),
+    amount(_amount),
+    habitType(_habitType)
+{
 
 }
 
