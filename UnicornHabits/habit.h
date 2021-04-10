@@ -2,44 +2,69 @@
 #ifndef HABIT_H
 #define HABIT_H
 
-#include <string>
+#include <QString>
 #include <QDateTime>
+
+enum class RepeatPeriod
+{
+    None,
+    Everyday,
+    Everyweek
+};
+
+enum class AmountUnit
+{
+    None,
+    Hours,
+    Kcals,
+    Liters
+};
 
 class Habit
 {
 private:
-    QDateTime time;
+    QString name;
 
-    std::string description;
-    std::string name;
-    std::string repeatPeriod;
+    QDateTime deadline;
+    RepeatPeriod repeatPeriod = RepeatPeriod::None;
+
+    float amount;
+    float defaultAmount;
+
+    AmountUnit units = AmountUnit::None;
 
 public:
     Habit()=delete;
 
-    Habit(std::string _description,
-          std::string _name,
-          std::string _repeatPeriod,
-          QDateTime _time);
+    Habit(QString _name,
+          QDateTime _deadline,
+          float defaultAmount = 0.0f);
 
     Habit(const Habit&) = delete;
     Habit& operator=(const Habit&) = delete;
 
-    virtual ~Habit();
-    virtual int getValue() = 0;
-    virtual std::string getDetails();
-    virtual bool hasExpired();
+    virtual ~Habit() = default;
+    int getValue();
+    bool hasExpired();
 
-    std::string getDescription();
-    std::string getName() const;
-    std::string getRepeatPeriod();
+    void setAmount(float amount);
+    float getAmount();
 
-    void setDescription(std::string _description);
-    void setName(std::string _name);
-    void setRepeatPeriod(std::string _repeatPeriod);
+    void resetAmount();
 
-    QDateTime getTime();
-    void setTime(QDateTime _time);
+    void setAmountUnit(AmountUnit units);
+    AmountUnit getAmountUnit();
+
+    QString getDescription();
+    QString getName() const;
+    RepeatPeriod getRepeatPeriod();
+
+    void setDescription(QString _description);
+    void setName(QString _name);
+    void setRepeatPeriod(RepeatPeriod _repeatPeriod);
+
+    QDateTime getDeadline();
+    void setDeadline(QDateTime _time);
 };
 
 #endif // HABIT_H

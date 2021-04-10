@@ -61,22 +61,22 @@ void MainAppWidget::updateHabits()
 
 void MainAppWidget::acceptHabit(std::shared_ptr<Habit> habit)
 {
-    if(habit->getRepeatPeriod().empty()){
+    if(habit->getRepeatPeriod() == RepeatPeriod::None){
         removeHabit(habit);
         addPowerPoints(habit->getValue());
     }
-    else if(habit->getRepeatPeriod() == "Everyday"){
-        if(QDateTime::currentDateTime().daysTo(habit->getTime())<=1){
-            habit->setTime(habit->getTime().addDays(1));
+    else if(habit->getRepeatPeriod() == RepeatPeriod::Everyday){
+        if(QDateTime::currentDateTime().daysTo(habit->getDeadline())<=1){
+            habit->setDeadline(habit->getDeadline().addDays(1));
             addPowerPoints(habit->getValue());
         }
         else
             QMessageBox::information(this, "Come back tomorrow","You have done this task today");
     }
-    else if(habit->getRepeatPeriod() == "Everyweek"){
+    else if(habit->getRepeatPeriod() == RepeatPeriod::Everyweek){
 
-        if(QDateTime::currentDateTime().daysTo(habit->getTime())<=7){
-            habit->setTime(habit->getTime().addDays(7));
+        if(QDateTime::currentDateTime().daysTo(habit->getDeadline())<=7){
+            habit->setDeadline(habit->getDeadline().addDays(7));
             addPowerPoints(habit->getValue());
         }
         else
@@ -105,15 +105,16 @@ void MainAppWidget::checkIfExpired()
         if(habit->hasExpired())
         {
             QMessageBox::information(this, "Task expired",
-                                     QString::fromStdString("You have not "
-                                                            "finished your "
-                                                            "task on time: " + habit->getName()));
-            if(habit->getRepeatPeriod().empty())
+                                     "You have not "
+                                     "finished your "
+                                     "task on time: " + habit->getName());
+
+            if(habit->getRepeatPeriod() == RepeatPeriod::None)
                 removeHabit(habit);
-            else if(habit->getRepeatPeriod()=="Everyday")
-                habit->setTime(habit->getTime().addDays(1));
-            else if(habit->getRepeatPeriod()=="Everyweek")
-                habit->setTime(habit->getTime().addDays(7));
+            else if(habit->getRepeatPeriod() == RepeatPeriod::Everyday)
+                habit->setDeadline(habit->getDeadline().addDays(1));
+            else if(habit->getRepeatPeriod() == RepeatPeriod::Everyweek)
+                habit->setDeadline(habit->getDeadline().addDays(7));
 
             updateHabits();
             addPowerPoints(-habit->getValue());

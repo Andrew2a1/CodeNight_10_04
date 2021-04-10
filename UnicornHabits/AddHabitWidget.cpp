@@ -2,21 +2,20 @@
 #include "ui_AddHabitWidget.h"
 
 #include "mainwindow.h"
-#include "todohabit.h"
-#include "amounthabit.h"
 
 #include <memory>
 #include <QMessageBox>
 
-HabitType fromString(const QString &habitStr)
+AmountUnit fromString(const QString &unitStr)
 {
-    if(habitStr == "Time")
-        return HabitType::Time;
+    if(unitStr == "Hours")
+        return AmountUnit::Hours;
+    else if(unitStr == "Kcals")
+        return AmountUnit::Kcals;
+    else if(unitStr == "Liters")
+        return AmountUnit::Liters;
 
-    else if(habitStr == "Calories")
-        return HabitType::Calories;
-
-    return HabitType::Volume;
+    return AmountUnit::None;
 }
 
 AddHabitWidget::AddHabitWidget(QWidget *parent) :
@@ -37,18 +36,15 @@ AddHabitWidget::~AddHabitWidget()
 
 void AddHabitWidget::on_okBtn_clicked()
 {
-    Habit *habit;
-
-    std::string habitName = ui->habitName->text().toStdString();
-    std::string habitDesc = ui->habitDescription->text().toStdString();
-    std::string period = ui->repeatPeriod->currentText().toStdString();
+    QString habitName = ui->habitName->text();
+    QString period = ui->repeatPeriod->currentText();
 
     if(!ui->repeatPeriod->isEnabled())
         period = "";
 
-    QDateTime selectedDateTime = ui->deadline->dateTime();
+    QDateTime deadline = ui->deadline->dateTime();
 
-    if(selectedDateTime < QDateTime::currentDateTime() &&
+    if(deadline < QDateTime::currentDateTime() &&
             ui->shouldRepeat->isEnabled())
     {
         QMessageBox::warning(this, "Warning",
@@ -57,17 +53,22 @@ void AddHabitWidget::on_okBtn_clicked()
         return;
     }
 
-    if(ui->habitType->currentText() == "Todo")
+    float amount = 0.0f;
+
+    if(ui->habitType->currentText() == "Amount")
+        amount = ui->amount->value();
+
+    Habit *habit = new Habit(habitName, deadline, amount);
+
+    if(period == "Everyday")
+        habit->setRepeatPeriod(RepeatPeriod::Everyday);
+    else if(period == "Everyweek")
+        habit->setRepeatPeriod(RepeatPeriod::Everyweek);
+
+    if(ui->habitType->currentText() == "Amount")
     {
-        habit = new TodoHabit(habitDesc, habitName,
-                              period, selectedDateTime);
-    }
-    else
-    {
-        habit = new AmountHabit(habitDesc, habitName,
-                                period, selectedDateTime,
-                                ui->amount->value(),
-                                fromString(ui->units->currentText()));
+        habit->setAmount(amount);
+        habit->setAmountUnit(fromString(ui->units->currentText()));
     }
 
     emit habitCreated(habit);

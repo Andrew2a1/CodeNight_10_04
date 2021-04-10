@@ -5,7 +5,18 @@
 #include <QMessageBox>
 #include <QInputDialog>
 
-#include "amounthabit.h"
+QString fromRepeatPeriod(RepeatPeriod period)
+{
+    switch (period)
+    {
+    case RepeatPeriod::Everyday:
+        return "Everyday";
+    case RepeatPeriod::Everyweek:
+        return "Everyweek";
+    default:
+        return "";
+    }
+}
 
 HabitWidget::HabitWidget(std::shared_ptr<Habit> habit,
                          QWidget *parent) :
@@ -29,8 +40,14 @@ std::shared_ptr<Habit> HabitWidget::getHabit() const
 
 void HabitWidget::refresh()
 {
-    ui->nameLabel->setText(QString::fromStdString(habit->getDetails()));
-    ui->repeatLabel->setText(QString::fromStdString(habit->getRepeatPeriod()));
+    ui->nameLabel->setText(habit->getName());
+    ui->deadlineLabel->setText(habit->getDeadline().toString());
+    ui->repeatLabel->setText(fromRepeatPeriod(habit->getRepeatPeriod()));
+
+    if(habit->getAmountUnit() != AmountUnit::None)
+        ui->amountLabel->setText("Amount: " + QString::number(habit->getAmount()));
+    else
+        ui->amountLabel->setText("");
 }
 
 void HabitWidget::mousePressEvent(QMouseEvent *event)
@@ -38,19 +55,17 @@ void HabitWidget::mousePressEvent(QMouseEvent *event)
     if(event->type() == QEvent::MouseButtonPress &&
             event->button() == Qt::LeftButton)
     {
-        AmountHabit *amount = dynamic_cast<AmountHabit*>(habit.get());
-
-        if(amount)
+        if(habit->getAmountUnit() != AmountUnit::None)
         {
             double value = QInputDialog::getDouble(this, "Question",
                                                    "How much have you done?");
             if(value > 0)
-                amount->setAmount(std::max(0.0, amount->getAmount()-value));
+                habit->setAmount(std::max(0.0, habit->getAmount() - value));
 
-            if(amount->getAmount() < 0.001)
+            if(habit->getAmount() < 0.001)
             {
-                if(!amount->getRepeatPeriod().empty())
-                    amount->resetToDefault();
+                if(habit->getRepeatPeriod() != RepeatPeriod::None)
+                    habit->resetAmount();
                 emit habitDone(habit);
             }
 

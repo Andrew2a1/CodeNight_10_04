@@ -19,10 +19,8 @@ SOURCES += \
     mainwindow.cpp \
     Unicorn.cpp \
     User.cpp \
-    amounthabit.cpp \
     habit.cpp \
-    main.cpp \
-    todohabit.cpp
+    main.cpp
 
 HEADERS += \
     AddHabitWidget.h \
@@ -35,9 +33,7 @@ HEADERS += \
     Unicorn.h \
     User.h \
     mainwindow.h \
-    amounthabit.h \
-    habit.h \
-    todohabit.h
+    habit.h
 
 FORMS += \
     AddHabitWidget.ui \

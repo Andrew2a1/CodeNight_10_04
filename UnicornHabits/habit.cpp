@@ -1,56 +1,71 @@
 #include "habit.h"
 
-Habit::Habit(std::string _description,
-             std::string _name,
-             std::string _repeatPeriod,
-             QDateTime _time):
-    description(_description),
+Habit::Habit(QString _name,
+             QDateTime _deadline,
+             float defaultAmount):
     name(_name),
-    repeatPeriod(_repeatPeriod),
-    time(_time)
+    deadline(_deadline),
+    defaultAmount(defaultAmount)
 {
-
-};
-
-Habit::~Habit(){
 
 }
 
-std::string Habit::getDetails()
+int Habit::getValue()
 {
-    return name + ": " + description + "\n" + getTime().toString().toStdString();
+    return 1;
 }
 
 bool Habit::hasExpired()
 {
-    return QDateTime::currentDateTime() >= getTime();
+    return QDateTime::currentDateTime() >= getDeadline();
 }
 
-std::string Habit::getDescription(){
-    return description;
+void Habit::setAmount(float amount)
+{
+    this->amount = amount;
 }
-std::string Habit::getName() const {
+
+float Habit::getAmount()
+{
+    return amount;
+}
+
+void Habit::resetAmount()
+{
+    amount = defaultAmount;
+}
+
+void Habit::setAmountUnit(AmountUnit units)
+{
+    this->units = units;
+}
+
+AmountUnit Habit::getAmountUnit()
+{
+    return units;
+}
+
+QString Habit::getName() const {
     return name;
 }
-std::string Habit::getRepeatPeriod(){
+
+RepeatPeriod Habit::getRepeatPeriod(){
     return repeatPeriod;
 }
-void Habit::setDescription(std::string _description){
-    description=_description;
-}
-void Habit::setName(std::string _name){
+
+void Habit::setName(QString _name){
     name=_name;
 
 }
-void Habit::setRepeatPeriod(std::string _repeatPeriod){
+void Habit::setRepeatPeriod(RepeatPeriod _repeatPeriod){
     repeatPeriod=_repeatPeriod;
 }
 
-QDateTime Habit::getTime(){
-    return time;
+QDateTime Habit::getDeadline(){
+    return deadline;
 }
 
-void Habit::setTime(QDateTime _time){
-    time=_time;
+void Habit::setDeadline(QDateTime _time){
+    deadline=_time;
 }
 
