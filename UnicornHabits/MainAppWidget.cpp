@@ -60,6 +60,7 @@ void MainAppWidget::acceptHabit(std::shared_ptr<Habit> habit)
 {
     if(habit->getRepeatPeriod().empty())
         removeHabit(habit);
+    addPowerPoints(habit->getValue());
     else if(habit->getRepeatPeriod() == "Everyday"){
         if(QDateTime::currentDateTime().daysTo(habit->getTime())<=1){
         habit->setTime(habit->getTime().addDays(1));
