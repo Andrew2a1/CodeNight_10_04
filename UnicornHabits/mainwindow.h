@@ -2,9 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+
 #include "LoginWidget.h"
 #include "MainAppWidget.h"
 
+#include "User.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -23,7 +25,8 @@ public:
     ~MainWindow();
 
 public slots:
-    void switchToMainWidget();
+    void switchToMainWidget(User* user);
+    void switchToLoginWidget(const QString &lastUserName = "");
 
 private:
     Ui::MainWindow *ui;

@@ -10,14 +10,16 @@ MainAppWidget::MainAppWidget(QWidget *parent) :
     ui(new Ui::MainAppWidget)
 {
     ui->setupUi(this);
-
-    QVBoxLayout *layout = new QVBoxLayout(this);
-    QLabel *label = new QLabel("Hello", this);
-
-    layout->addWidget(label);
 }
 
 MainAppWidget::~MainAppWidget()
 {
     delete ui;
+    delete user;
+}
+
+void MainAppWidget::setUser(User *user)
+{
+    this->user = user;
+    ui->helloLabel->setText("Witaj " + user->getName());
 }

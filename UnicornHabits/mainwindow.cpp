@@ -6,11 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
-    loginWidget = new LoginWidget(this);
-    loginWidget->setMainWindow(this);
-
-    setCentralWidget(loginWidget);
+    switchToLoginWidget();
 }
 
 MainWindow::~MainWindow()
@@ -18,16 +14,26 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::switchToMainWidget()
+void MainWindow::switchToMainWidget(User *user)
 {
     if(loginWidget) {
         loginWidget->deleteLater();
         loginWidget = nullptr;
     }
 
-    if(!mainWidget)
+    if(!mainWidget) {
         mainWidget = new MainAppWidget(this);
+        mainWidget->setUser(user);
+    }
 
     setCentralWidget(mainWidget);
 }
 
+void MainWindow::switchToLoginWidget(const QString &lastUserName)
+{
+    loginWidget = new LoginWidget(this);
+    loginWidget->setMainWindow(this);
+    loginWidget->setDefaultUserName(lastUserName);
+
+    setCentralWidget(loginWidget);
+}

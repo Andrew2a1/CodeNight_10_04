@@ -70,7 +70,7 @@
       </widget>
      </item>
      <item row="3" column="0">
-      <widget class="QLineEdit" name="lineEdit">
+      <widget class="QLineEdit" name="userName">
        <property name="font">
         <font>
          <pointsize>12</pointsize>

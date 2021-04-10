@@ -11,12 +11,16 @@ CONFIG += c++11
 SOURCES += \
     LoginWidget.cpp \
     MainAppWidget.cpp \
+    Unicorn.cpp \
+    User.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     LoginWidget.h \
     MainAppWidget.h \
+    Unicorn.h \
+    User.h \
     mainwindow.h
 
 FORMS += \
