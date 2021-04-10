@@ -63,12 +63,25 @@ void MainAppWidget::acceptHabit(std::shared_ptr<Habit> habit)
 {
     if(habit->getRepeatPeriod().empty())
         removeHabit(habit);
-    else if(habit->getRepeatPeriod() == "Everyday")
+    else if(habit->getRepeatPeriod() == "Everyday"){
+        if(QDateTime::currentDateTime().daysTo(habit->getTime())<=1){
         habit->setTime(habit->getTime().addDays(1));
-    else if(habit->getRepeatPeriod() == "Everyweek")
-        habit->setTime(habit->getTime().addDays(7));
+        addPowerPoints(habit->getValue());
+        }
+        else
+         QMessageBox::information(this, "Come back tomorrow","You have done this task today");
+    }
+    else if(habit->getRepeatPeriod() == "Everyweek"){
 
-    addPowerPoints(habit->getValue());
+        if(QDateTime::currentDateTime().daysTo(habit->getTime())<=7){
+         habit->setTime(habit->getTime().addDays(7));
+        addPowerPoints(habit->getValue());
+        }
+        else
+         QMessageBox::information(this, "Come back next week","You have done this task this week");
+    }
+
+
     updateHabits();
 }
 
@@ -90,7 +103,14 @@ void MainAppWidget::checkIfExpired()
                                      QString::fromStdString("You have not "
                                                             "finished your "
                                                             "task on time: " + habit->getName()));
+            if(habit->getRepeatPeriod().empty())
             removeHabit(habit);
+            else if(habit->getRepeatPeriod()=="Everyday")
+                 habit->setTime(habit->getTime().addDays(1));
+            else if(habit->getRepeatPeriod()=="Everyweek")
+                habit->setTime(habit->getTime().addDays(7));
+             updateHabits();
+
             addPowerPoints(-habit->getValue());
         }
     }
