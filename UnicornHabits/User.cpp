@@ -2,7 +2,8 @@
 
 #include <QJsonDocument>
 #include <QJsonObject>
-#include <QByteArray>
+#include <QJsonArray>
+#include <QFile>
 
 User::User(const QString &name) :
     name(name)
@@ -35,12 +36,37 @@ const QList<std::shared_ptr<Habit> > &User::getHabits() const
     return habits;
 }
 
-QByteArray User::serialize()
+void User::serialize() const
 {
+    QJsonDocument jsonDoc;
+    QJsonObject json;
+    QFile saveFile(this->name +".json");
+    saveFile.open(QIODevice::WriteOnly);
 
+json["name"]=this->name;
+QJsonArray habitArray;
+for( const auto &habit : habits){
+    QJsonObject habitObject;
+    habit->serialize(habitObject);
+    habitArray.append(habitObject);
+}
+QJsonObject unicornObject;
+this->unicorn.serialize(unicornObject);
+json["unicorn"]=unicornObject;
+json["habits"]=habitArray;
+jsonDoc.setObject(json);
+saveFile.write(jsonDoc.toJson());
+saveFile.close();
 }
 
 void User::deserialize(QByteArray data)
 {
+QFile saveFile(this->name+".json");
+if(saveFile.open(QIODevice::ReadOnly)){
+    QJsonDocument jsonDoc;
+jsonDoc.fromJson(saveFile.readAll());
 
+
+}
+else{}
 }

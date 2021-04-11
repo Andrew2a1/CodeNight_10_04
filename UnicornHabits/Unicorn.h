@@ -2,7 +2,7 @@
 #define UNICORN_H
 
 #include <QString>
-
+#include <QJsonObject>
 class Unicorn
 {
 private:
@@ -13,6 +13,7 @@ private:
 public:
     int getPower();
     void addPower(int amount);
+    void serialize(QJsonObject &json)const;
 };
 
 #endif // UNICORN_H

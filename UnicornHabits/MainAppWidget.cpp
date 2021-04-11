@@ -54,6 +54,7 @@ User *MainAppWidget::getUser() const
 void MainAppWidget::addHabit(std::shared_ptr<Habit> habit)
 {
     user->addHabit(habit);
+    user->serialize();
 }
 
 void MainAppWidget::removeHabit(std::shared_ptr<Habit> habit)

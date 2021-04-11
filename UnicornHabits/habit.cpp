@@ -69,3 +69,12 @@ void Habit::setDeadline(QDateTime _time){
     deadline=_time;
 }
 
+void Habit::Habit::serialize(QJsonObject &json) const
+{
+    json["name"]=this->name;
+    json["deadline"]=this->deadline.toString();
+    json["defaultAmount"]=this->defaultAmount;
+    json["amount"]=this->amount;
+
+}
+
