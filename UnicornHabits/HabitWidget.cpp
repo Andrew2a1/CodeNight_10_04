@@ -28,6 +28,8 @@ QString fromAmountUnits(AmountUnit units)
         return "Kcals";
     case AmountUnit::Liters:
         return "Liters";
+    case AmountUnit::Steps:
+        return "Steps";
     default:
         return "";
     }

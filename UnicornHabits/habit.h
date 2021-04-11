@@ -18,6 +18,7 @@ enum class AmountUnit
     None,
     Hours,
     Kcals,
+    Steps,
     Liters
 };
 

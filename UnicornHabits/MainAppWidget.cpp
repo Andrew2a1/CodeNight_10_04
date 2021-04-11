@@ -36,6 +36,7 @@ MainAppWidget::MainAppWidget(QWidget *parent) :
 MainAppWidget::~MainAppWidget()
 {
     delete ui;
+    delete user;
 }
 
 void MainAppWidget::setUser(User *user)
@@ -61,6 +62,18 @@ void MainAppWidget::removeHabit(std::shared_ptr<Habit> habit)
 {
     user->removeHabit(habit);
     updateHabits();
+}
+
+int MainAppWidget::getStage() const
+{
+    if(ui->powerProgress->value() == 0)
+        return 1;
+    if(ui->powerProgress->value() < 33)
+        return 2;
+    else if(ui->powerProgress->value() < 66)
+        return 3;
+
+    return 4;
 }
 
 void MainAppWidget::updateHabits()
@@ -98,7 +111,6 @@ void MainAppWidget::acceptHabit(std::shared_ptr<Habit> habit)
             QMessageBox::information(this, "Come back next week","You have done this task this week");
     }
 
-
     updateHabits();
 }
 
@@ -126,13 +138,19 @@ void MainAppWidget::checkIfExpired()
 
             if(habit->getRepeatPeriod() == RepeatPeriod::None)
                 removeHabit(habit);
-            else if(habit->getRepeatPeriod() == RepeatPeriod::Everyday)
+            else if(habit->getRepeatPeriod() == RepeatPeriod::Everyday) {
                 habit->setDeadline(habit->getDeadline().addDays(1));
-            else if(habit->getRepeatPeriod() == RepeatPeriod::Everyweek)
+                habit->resetAmount();
+            }
+            else if(habit->getRepeatPeriod() == RepeatPeriod::Everyweek) {
                 habit->setDeadline(habit->getDeadline().addDays(7));
+                habit->resetAmount();
+            }
+
+            int penalty = -habit->getValue();
+            addPowerPoints(getStage()*penalty);
 
             updateHabits();
-            addPowerPoints(-habit->getValue());
         }
     }
 }

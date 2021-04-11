@@ -14,6 +14,8 @@ AmountUnit fromString(const QString &unitStr)
         return AmountUnit::Kcals;
     else if(unitStr == "Liters")
         return AmountUnit::Liters;
+    else if(unitStr == "Steps")
+        return AmountUnit::Steps;
 
     return AmountUnit::None;
 }

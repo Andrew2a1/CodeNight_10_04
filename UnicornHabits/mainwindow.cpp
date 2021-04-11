@@ -40,6 +40,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+    logout();
     delete ui;
 }
 
@@ -67,7 +68,8 @@ void MainWindow::login(const QString &username)
 void MainWindow::logout()
 {
     User *user = mainWidget->getUser();
-    user->serialize();
+    if(user)
+        user->serialize();
 
     mainWidget->setUser(nullptr);
     ui->stackedWidget->setCurrentWidget(loginWidget);

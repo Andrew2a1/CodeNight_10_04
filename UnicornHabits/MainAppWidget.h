@@ -32,6 +32,8 @@ public:
     void addHabit(std::shared_ptr<Habit> habit);
     void removeHabit(std::shared_ptr<Habit> habit);
 
+    int getStage() const;
+
 public slots:
     void updateHabits();
     void acceptHabit(std::shared_ptr<Habit> habit);

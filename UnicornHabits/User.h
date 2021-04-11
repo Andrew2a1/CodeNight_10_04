@@ -3,7 +3,7 @@
 
 #include <QString>
 #include <QList>
-#include<QJsonObject>
+#include <QJsonObject>
 #include <memory>
 
 #include "Unicorn.h"
