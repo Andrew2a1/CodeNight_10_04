@@ -9,8 +9,10 @@ int main(int argc, char *argv[])
     a.setStyle(QStyleFactory::create("fusion"));
 
     MainWindow w;
-    w.show();
     w.setFixedSize(1440/3, 2960/3);
+    w.setWindowTitle("UnicornHabits");
+    w.setWindowIcon(QIcon(":/icons/UnicornHabitsIcon.SVG"));
+    w.show();
 
     return a.exec();
 }

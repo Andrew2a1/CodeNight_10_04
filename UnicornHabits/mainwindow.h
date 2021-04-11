@@ -9,6 +9,7 @@
 #include "LoginWidget.h"
 #include "MainAppWidget.h"
 #include "LogoutWidget.h"
+#include "StudyModeWidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -22,6 +23,7 @@ private:
     LoginWidget *loginWidget;
     MainAppWidget *mainWidget;
     LogoutWidget *logoutWidget;
+    StudyModeWidget *studyMode;
 
 public:
     MainWindow(QWidget *parent = nullptr);

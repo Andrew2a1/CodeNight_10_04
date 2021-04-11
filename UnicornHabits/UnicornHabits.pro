@@ -17,6 +17,7 @@ SOURCES += \
     LogoutWidget.cpp \
     MainAppWidget.cpp \
     PowerBar.cpp \
+    StudyModeWidget.cpp \
     SvgWidget.cpp \
     dialog.cpp \
     mainwindow.cpp \
@@ -34,6 +35,7 @@ HEADERS += \
     LogoutWidget.h \
     MainAppWidget.h \
     PowerBar.h \
+    StudyModeWidget.h \
     SvgWidget.h \
     Unicorn.h \
     User.h \
@@ -48,6 +50,7 @@ FORMS += \
     LoginWidget.ui \
     LogoutWidget.ui \
     MainAppWidget.ui \
+    StudyModeWidget.ui \
     dialog.ui \
     mainwindow.ui
 
