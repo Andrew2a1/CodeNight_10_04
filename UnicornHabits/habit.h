@@ -4,6 +4,7 @@
 
 #include <QString>
 #include <QDateTime>
+#include <QJsonObject>
 
 enum class RepeatPeriod
 {
@@ -65,6 +66,7 @@ public:
 
     QDateTime getDeadline();
     void setDeadline(QDateTime _time);
+    void serialize(QJsonObject &json) const;
 };
 
 #endif // HABIT_H

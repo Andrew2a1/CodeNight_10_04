@@ -3,7 +3,7 @@
 
 #include <QString>
 #include <QList>
-
+#include<QJsonObject>
 #include <memory>
 
 #include "Unicorn.h"
@@ -26,7 +26,7 @@ public:
     void removeHabit(std::shared_ptr<Habit> habit);
     const QList<std::shared_ptr<Habit> > &getHabits() const;
 
-    QByteArray serialize();
+    void serialize()const;
     void deserialize(QByteArray data);
 };
 
