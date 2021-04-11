@@ -27,6 +27,9 @@ MainAppWidget::MainAppWidget(QWidget *parent) :
     connect(ui->habits, &HabitWidgetContainer::requestRemove,
             this, &MainAppWidget::removeHabit);
 
+    connect(ui->optionsBtn, &QPushButton::clicked,
+            this, &MainAppWidget::optionsPressed);
+
     timer->start();
 }
 
@@ -38,6 +41,14 @@ MainAppWidget::~MainAppWidget()
 void MainAppWidget::setUser(User *user)
 {
     this->user = user;
+
+    if(user)
+        ui->usernameLabel->setText("Welcome " + user->getName());
+}
+
+User *MainAppWidget::getUser() const
+{
+    return user;
 }
 
 void MainAppWidget::addHabit(std::shared_ptr<Habit> habit)

@@ -8,6 +8,7 @@
 
 #include "LoginWidget.h"
 #include "MainAppWidget.h"
+#include "LogoutWidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -20,6 +21,7 @@ class MainWindow : public QMainWindow
 private:
     LoginWidget *loginWidget;
     MainAppWidget *mainWidget;
+    LogoutWidget *logoutWidget;
 
 public:
     MainWindow(QWidget *parent = nullptr);
@@ -30,6 +32,8 @@ public slots:
 
 private slots:
     void login(const QString &username);
+    void logout();
+
     void createHabitWidget();
 
 private:

@@ -32,7 +32,6 @@ signals:
 
 protected:
     void contextMenuEvent(QContextMenuEvent *event) override;
-
 };
 
 #endif // HABITWIDGETCONTAINER_H

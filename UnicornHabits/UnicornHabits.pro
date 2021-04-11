@@ -14,7 +14,9 @@ SOURCES += \
     HabitWidget.cpp \
     HabitWidgetContainer.cpp \
     LoginWidget.cpp \
+    LogoutWidget.cpp \
     MainAppWidget.cpp \
+    PowerBar.cpp \
     SvgWidget.cpp \
     mainwindow.cpp \
     Unicorn.cpp \
@@ -28,7 +30,9 @@ HEADERS += \
     HabitWidget.h \
     HabitWidgetContainer.h \
     LoginWidget.h \
+    LogoutWidget.h \
     MainAppWidget.h \
+    PowerBar.h \
     SvgWidget.h \
     Unicorn.h \
     User.h \
@@ -40,6 +44,7 @@ FORMS += \
     HabitWidget.ui \
     HabitWidgetContainer.ui \
     LoginWidget.ui \
+    LogoutWidget.ui \
     MainAppWidget.ui \
     mainwindow.ui
 

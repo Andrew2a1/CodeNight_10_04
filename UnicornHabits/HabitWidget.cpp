@@ -41,13 +41,15 @@ std::shared_ptr<Habit> HabitWidget::getHabit() const
 void HabitWidget::refresh()
 {
     ui->nameLabel->setText(habit->getName());
-    ui->deadlineLabel->setText(habit->getDeadline().toString());
+    ui->deadlineLabel->setText(habit->getDeadline().toString(Qt::DateFormat::DefaultLocaleShortDate));
     ui->repeatLabel->setText(fromRepeatPeriod(habit->getRepeatPeriod()));
 
     if(habit->getAmountUnit() != AmountUnit::None)
         ui->amountLabel->setText("Amount: " + QString::number(habit->getAmount()));
     else
         ui->amountLabel->setText("");
+
+    setMinimumWidth(sizeHint().width());
 }
 
 void HabitWidget::mousePressEvent(QMouseEvent *event)
@@ -58,7 +60,8 @@ void HabitWidget::mousePressEvent(QMouseEvent *event)
         if(habit->getAmountUnit() != AmountUnit::None)
         {
             double value = QInputDialog::getDouble(this, "Question",
-                                                   "How much have you done?");
+                                                   "How much have you done?",
+                                                   0, 0);
             if(value > 0)
                 habit->setAmount(std::max(0.0, habit->getAmount() - value));
 
@@ -68,7 +71,6 @@ void HabitWidget::mousePressEvent(QMouseEvent *event)
                     habit->resetAmount();
                 emit habitDone(habit);
             }
-
         }
         else
         {

@@ -27,6 +27,8 @@ public:
     ~MainAppWidget();
 
     void setUser(User *user);
+    User* getUser() const;
+
     void addHabit(std::shared_ptr<Habit> habit);
     void removeHabit(std::shared_ptr<Habit> habit);
 
@@ -38,6 +40,7 @@ public slots:
 
 signals:
     void btnAddHabitPressed();
+    void optionsPressed();
 
 private slots:
     void on_addHabitBtn_clicked();

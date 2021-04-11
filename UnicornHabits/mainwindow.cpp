@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "AddHabitWidget.h"
 
+
 #include <QtDebug>
 #include <memory>
 
@@ -13,9 +14,11 @@ MainWindow::MainWindow(QWidget *parent)
 
     loginWidget = new LoginWidget(this);
     mainWidget = new MainAppWidget(this);
+    logoutWidget = new LogoutWidget(this);
 
     ui->stackedWidget->addWidget(loginWidget);
     ui->stackedWidget->addWidget(mainWidget);
+    ui->stackedWidget->addWidget(logoutWidget);
 
     ui->stackedWidget->setCurrentWidget(loginWidget);
 
@@ -24,6 +27,15 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(mainWidget, &MainAppWidget::btnAddHabitPressed,
             this, &MainWindow::createHabitWidget);
+
+    connect(mainWidget, &MainAppWidget::optionsPressed,
+            this, [=](){ui->stackedWidget->setCurrentWidget(logoutWidget);});
+
+    connect(logoutWidget, &LogoutWidget::backPressed,
+            this, [=](){ui->stackedWidget->setCurrentWidget(mainWidget);});
+
+    connect(logoutWidget, &LogoutWidget::logoutPressed,
+            this, &MainWindow::logout);
 }
 
 MainWindow::~MainWindow()
@@ -45,6 +57,16 @@ void MainWindow::login(const QString &username)
 {
     mainWidget->setUser(new User(username));
     ui->stackedWidget->setCurrentWidget(mainWidget);
+}
+
+void MainWindow::logout()
+{
+    User *user = mainWidget->getUser();
+
+    mainWidget->setUser(nullptr);
+    ui->stackedWidget->setCurrentWidget(loginWidget);
+
+    delete user;
 }
 
 void MainWindow::createHabitWidget()
