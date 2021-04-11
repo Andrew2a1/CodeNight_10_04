@@ -9,6 +9,12 @@
         <file>stage3.png</file>
         <file>stage4.png</file>
         <file>settings.png</file>
+        <file>drink2.png</file>
+        <file>drink.png</file>
+        <file>kcal.png</file>
+        <file>steps.png</file>
+        <file>todo.png</file>
+        <file>studymode.png</file>
     </qresource>
     <qresource prefix="/"/>
 </RCC>
