@@ -30,6 +30,11 @@ float Habit::getAmount()
     return amount;
 }
 
+void Habit::setUnits(AmountUnit units)
+{
+    this->units = units;
+}
+
 void Habit::resetAmount()
 {
     amount = defaultAmount;
@@ -71,10 +76,30 @@ void Habit::setDeadline(QDateTime _time){
 
 void Habit::Habit::serialize(QJsonObject &json) const
 {
-    json["name"]=this->name;
-    json["deadline"]=this->deadline.toString();
-    json["defaultAmount"]=this->defaultAmount;
-    json["amount"]=this->amount;
+    json["name"] = this->name;
+    json["deadline"] = this->deadline.toString();
+    json["defaultAmount"] = this->defaultAmount;
+    json["amount"] = this->amount;
 
+    json["repeatPeriod"] = (int)this->repeatPeriod;
+    json["units"] = (int)this->units;
+}
+
+Habit *Habit::deserialize(QJsonObject &habitObject)
+{
+    QString habitName = habitObject["name"].toString();
+    QDateTime deadline = QDateTime::fromString(habitObject["deadline"].toString());
+    float defaultAmount = habitObject["defaultAmount"].toDouble(0);
+    float amount = habitObject["amount"].toDouble(0);
+
+    RepeatPeriod period = (RepeatPeriod)habitObject["repeatPeriod"].toInt();
+    AmountUnit units = (AmountUnit)habitObject["units"].toInt();
+
+    Habit *habit = new Habit(habitName, deadline, defaultAmount);
+    habit->setAmount(amount);
+    habit->setRepeatPeriod(period);
+    habit->setUnits(units);
+
+    return habit;
 }
 

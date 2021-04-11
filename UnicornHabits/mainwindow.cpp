@@ -55,13 +55,19 @@ void MainWindow::addHabit(Habit *habit)
 
 void MainWindow::login(const QString &username)
 {
-    mainWidget->setUser(new User(username));
+    User* user = new User(username);
+    user->deserialize();
+
+    mainWidget->setUser(user);
+    mainWidget->updateHabits();
+
     ui->stackedWidget->setCurrentWidget(mainWidget);
 }
 
 void MainWindow::logout()
 {
     User *user = mainWidget->getUser();
+    user->serialize();
 
     mainWidget->setUser(nullptr);
     ui->stackedWidget->setCurrentWidget(loginWidget);

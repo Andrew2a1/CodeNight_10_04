@@ -26,8 +26,8 @@ public:
     void removeHabit(std::shared_ptr<Habit> habit);
     const QList<std::shared_ptr<Habit> > &getHabits() const;
 
-    void serialize()const;
-    void deserialize(QByteArray data);
+    void serialize() const;
+    void deserialize();
 };
 
 #endif // USER_H

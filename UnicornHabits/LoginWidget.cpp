@@ -4,6 +4,8 @@
 #include "mainwindow.h"
 #include "User.h"
 
+#include <QMessageBox>
+
 LoginWidget::LoginWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::LoginWidget)
@@ -30,5 +32,11 @@ void LoginWidget::setDefaultUserName(const QString &username)
 
 void LoginWidget::on_loginBtn_clicked()
 {
-    emit loginPressed(ui->userName->text());
+    QString username = ui->userName->text();
+
+    if(username.isEmpty())
+        QMessageBox::information(this,
+                                 "Error", "Please enter username");
+    else
+        emit loginPressed(username);
 }

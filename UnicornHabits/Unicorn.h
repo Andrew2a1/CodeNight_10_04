@@ -13,7 +13,9 @@ private:
 public:
     int getPower();
     void addPower(int amount);
-    void serialize(QJsonObject &json)const;
+
+    void serialize(QJsonObject &json) const;
+    void deserialize(QJsonObject &json);
 };
 
 #endif // UNICORN_H

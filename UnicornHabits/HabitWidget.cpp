@@ -18,6 +18,21 @@ QString fromRepeatPeriod(RepeatPeriod period)
     }
 }
 
+QString fromAmountUnits(AmountUnit units)
+{
+    switch (units)
+    {
+    case AmountUnit::Hours:
+        return "Hours";
+    case AmountUnit::Kcals:
+        return "Kcals";
+    case AmountUnit::Liters:
+        return "Liters";
+    default:
+        return "";
+    }
+}
+
 HabitWidget::HabitWidget(std::shared_ptr<Habit> habit,
                          QWidget *parent) :
     QWidget(parent),
@@ -44,10 +59,14 @@ void HabitWidget::refresh()
     ui->deadlineLabel->setText(habit->getDeadline().toString(Qt::DateFormat::DefaultLocaleShortDate));
     ui->repeatLabel->setText(fromRepeatPeriod(habit->getRepeatPeriod()));
 
-    if(habit->getAmountUnit() != AmountUnit::None)
-        ui->amountLabel->setText("Amount: " + QString::number(habit->getAmount()));
-    else
+    if(habit->getAmountUnit() != AmountUnit::None) {
+        ui->amountLabel->setText("Amount: " +
+                                 QString::number(habit->getAmount()) + " " +
+                                 fromAmountUnits(habit->getAmountUnit()));
+    }
+    else {
         ui->amountLabel->setText("");
+    }
 
     setMinimumWidth(sizeHint().width());
 }

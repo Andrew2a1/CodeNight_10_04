@@ -51,6 +51,8 @@ public:
     void setAmount(float amount);
     float getAmount();
 
+    void setUnits(AmountUnit units);
+
     void resetAmount();
 
     void setAmountUnit(AmountUnit units);
@@ -66,7 +68,9 @@ public:
 
     QDateTime getDeadline();
     void setDeadline(QDateTime _time);
+
     void serialize(QJsonObject &json) const;
+    static Habit *deserialize(QJsonObject &habitObject);
 };
 
 #endif // HABIT_H

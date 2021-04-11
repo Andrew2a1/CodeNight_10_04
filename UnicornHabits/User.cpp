@@ -43,30 +43,39 @@ void User::serialize() const
     QFile saveFile(this->name +".json");
     saveFile.open(QIODevice::WriteOnly);
 
-json["name"]=this->name;
-QJsonArray habitArray;
-for( const auto &habit : habits){
-    QJsonObject habitObject;
-    habit->serialize(habitObject);
-    habitArray.append(habitObject);
-}
-QJsonObject unicornObject;
-this->unicorn.serialize(unicornObject);
-json["unicorn"]=unicornObject;
-json["habits"]=habitArray;
-jsonDoc.setObject(json);
-saveFile.write(jsonDoc.toJson());
-saveFile.close();
+    json["name"]=this->name;
+    QJsonArray habitArray;
+    for( const auto &habit : habits){
+        QJsonObject habitObject;
+        habit->serialize(habitObject);
+        habitArray.append(habitObject);
+    }
+    QJsonObject unicornObject;
+    this->unicorn.serialize(unicornObject);
+    json["unicorn"]=unicornObject;
+    json["habits"]=habitArray;
+    jsonDoc.setObject(json);
+    saveFile.write(jsonDoc.toJson());
+    saveFile.close();
 }
 
-void User::deserialize(QByteArray data)
+void User::deserialize()
 {
-QFile saveFile(this->name+".json");
-if(saveFile.open(QIODevice::ReadOnly)){
-    QJsonDocument jsonDoc;
-jsonDoc.fromJson(saveFile.readAll());
+    QFile saveFile(this->name+".json");
+    if(saveFile.open(QIODevice::ReadOnly))
+    {
+        QJsonDocument jsonDoc = QJsonDocument::fromJson(saveFile.readAll());
 
+        QJsonObject json = jsonDoc.object();
+        QJsonArray array = json["habits"].toArray();
 
-}
-else{}
+        for( const auto &item : array)
+        {
+            QJsonObject habitObject = item.toObject();
+            habits.append(std::shared_ptr<Habit>(Habit::deserialize(habitObject)));
+        }
+
+        QJsonObject unicornObject = json["unicorn"].toObject();
+        unicorn.deserialize(unicornObject);
+    }
 }

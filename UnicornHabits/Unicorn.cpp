@@ -17,5 +17,12 @@ void Unicorn::serialize(QJsonObject &json) const
     json["background"]=this->background;
 }
 
+void Unicorn::deserialize(QJsonObject &json)
+{
+    power = json["power"].toInt();
+    skin = json["skin"].toString();
+    background = json["background"].toString();
+}
+
 
 

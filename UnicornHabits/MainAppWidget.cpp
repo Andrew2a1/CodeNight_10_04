@@ -69,6 +69,9 @@ void MainAppWidget::updateHabits()
 
     for(const auto& habit: user->getHabits())
         ui->habits->addHabit(habit);
+
+    Unicorn *unicorn = user->getUnicorn();
+    ui->powerProgress->setValue(unicorn->getPower());
 }
 
 void MainAppWidget::acceptHabit(std::shared_ptr<Habit> habit)
