@@ -16,11 +16,13 @@ MainWindow::MainWindow(QWidget *parent)
     mainWidget = new MainAppWidget(this);
     logoutWidget = new LogoutWidget(this);
     studyMode = new StudyModeWidget(this);
+    rewardWidget = new RewardWidget(this);
 
     ui->stackedWidget->addWidget(loginWidget);
     ui->stackedWidget->addWidget(mainWidget);
     ui->stackedWidget->addWidget(logoutWidget);
     ui->stackedWidget->addWidget(studyMode);
+    ui->stackedWidget->addWidget(rewardWidget);
 
     ui->stackedWidget->setCurrentWidget(loginWidget);
 
@@ -39,6 +41,10 @@ MainWindow::MainWindow(QWidget *parent)
         studyMode->askAboutTime();
     });
 
+    connect(mainWidget, &MainAppWidget::rewardsPressed,
+            this, [=](){ui->stackedWidget->setCurrentWidget(rewardWidget);});
+
+
     connect(logoutWidget, &LogoutWidget::backPressed,
             this, [=](){ui->stackedWidget->setCurrentWidget(mainWidget);});
 
@@ -53,6 +59,9 @@ MainWindow::MainWindow(QWidget *parent)
         ui->stackedWidget->setCurrentWidget(mainWidget);
         mainWidget->addPowerPoints(mark);
     });
+
+    connect(rewardWidget, &RewardWidget::returnPressed,
+            this, [=](){ui->stackedWidget->setCurrentWidget(mainWidget);});
 }
 
 MainWindow::~MainWindow()

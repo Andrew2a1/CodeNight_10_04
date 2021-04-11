@@ -33,7 +33,6 @@ signals:
     void returnPressed();
     void studyModePassed(int mark);
 
-
 protected:
     void paintEvent(QPaintEvent *event);
 

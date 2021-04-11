@@ -33,6 +33,9 @@ MainAppWidget::MainAppWidget(QWidget *parent) :
     connect(ui->studyModeBtn, &QPushButton::clicked,
             this, &MainAppWidget::studyModePressed);
 
+    connect(ui->rewardsBtn, &QPushButton::clicked,
+            this, &MainAppWidget::rewardsPressed);
+
     timer->start();
 }
 
@@ -155,8 +158,9 @@ void MainAppWidget::checkIfExpired()
                                      "finished your "
                                      "task on time: " + habit->getName());
 
-            if(habit->getRepeatPeriod() == RepeatPeriod::None)
+            if(habit->getRepeatPeriod() == RepeatPeriod::None) {
                 removeHabit(habit);
+            }
             else if(habit->getRepeatPeriod() == RepeatPeriod::Everyday) {
                 habit->setDeadline(habit->getDeadline().addDays(1));
                 habit->resetAmount();

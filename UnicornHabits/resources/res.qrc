@@ -16,6 +16,7 @@
         <file>todo.png</file>
         <file>studymode.png</file>
         <file>study.png</file>
+        <file>rewards.png</file>
     </qresource>
     <qresource prefix="/"/>
 </RCC>
