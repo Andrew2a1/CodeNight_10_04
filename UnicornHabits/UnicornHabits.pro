@@ -17,6 +17,7 @@ SOURCES += \
     LogoutWidget.cpp \
     MainAppWidget.cpp \
     PowerBar.cpp \
+    StudyModeWidget.cpp \
     SvgWidget.cpp \
     mainwindow.cpp \
     Unicorn.cpp \
@@ -33,6 +34,7 @@ HEADERS += \
     LogoutWidget.h \
     MainAppWidget.h \
     PowerBar.h \
+    StudyModeWidget.h \
     SvgWidget.h \
     Unicorn.h \
     User.h \
@@ -46,6 +48,7 @@ FORMS += \
     LoginWidget.ui \
     LogoutWidget.ui \
     MainAppWidget.ui \
+    StudyModeWidget.ui \
     mainwindow.ui
 
 # Default rules for deployment.

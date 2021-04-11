@@ -43,6 +43,7 @@ public slots:
 signals:
     void btnAddHabitPressed();
     void optionsPressed();
+    void studyModePressed();
 
 private slots:
     void on_addHabitBtn_clicked();

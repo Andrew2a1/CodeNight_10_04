@@ -30,6 +30,9 @@ MainAppWidget::MainAppWidget(QWidget *parent) :
     connect(ui->optionsBtn, &QPushButton::clicked,
             this, &MainAppWidget::optionsPressed);
 
+    connect(ui->studyModeBtn, &QPushButton::clicked,
+            this, &MainAppWidget::studyModePressed);
+
     timer->start();
 }
 

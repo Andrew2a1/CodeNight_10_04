@@ -140,6 +140,18 @@
          </property>
         </spacer>
        </item>
+       <item>
+        <widget class="QPushButton" name="studyModeBtn">
+         <property name="font">
+          <font>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Study mode</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </item>
      <item>
