@@ -19,8 +19,11 @@
   <property name="minimumSize">
    <size>
     <width>128</width>
-    <height>128</height>
+    <height>132</height>
    </size>
+  </property>
+  <property name="mouseTracking">
+   <bool>true</bool>
   </property>
   <property name="windowTitle">
    <string>Form</string>
@@ -46,6 +49,8 @@
         <property name="font">
          <font>
           <pointsize>12</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
          </font>
         </property>
         <property name="text">

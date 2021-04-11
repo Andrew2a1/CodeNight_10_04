@@ -5,6 +5,10 @@
 #include <QMessageBox>
 #include <QInputDialog>
 
+#include <QPainter>
+#include <QPaintEvent>
+#include <QPainterPath>
+
 QString fromRepeatPeriod(RepeatPeriod period)
 {
     switch (period)
@@ -78,6 +82,8 @@ void HabitWidget::mousePressEvent(QMouseEvent *event)
     if(event->type() == QEvent::MouseButtonPress &&
             event->button() == Qt::LeftButton)
     {
+        isPressed = true;
+
         if(habit->getAmountUnit() != AmountUnit::None)
         {
             double value = QInputDialog::getDouble(this, "Question",
@@ -108,4 +114,37 @@ void HabitWidget::mousePressEvent(QMouseEvent *event)
     }
 
     QWidget::mousePressEvent(event);
+}
+
+void HabitWidget::mouseReleaseEvent(QMouseEvent *event)
+{
+    if(event->button() == Qt::LeftButton)
+        isPressed = false;
+
+    QWidget::mouseReleaseEvent(event);
+}
+
+void HabitWidget::paintEvent(QPaintEvent *event)
+{
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing);
+
+    QSize adjustedSize = this->size() - QSize(2, 2);
+    QRect rect(QPoint(0,0), adjustedSize);
+
+    if(!(QApplication::mouseButtons() & Qt::LeftButton))
+        isPressed = false;
+
+    if(isPressed)
+    {
+        QPainterPath path;
+        path.addRect(rect);
+
+        QPen pen(Qt::black, 1);
+        painter.setPen(pen);
+        painter.fillPath(path, QColor(64, 64, 64, 128));
+        painter.drawPath(path);
+    }
+
+    QWidget::paintEvent(event);
 }

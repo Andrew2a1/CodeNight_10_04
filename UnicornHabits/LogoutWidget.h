@@ -19,6 +19,9 @@ signals:
     void logoutPressed();
     void backPressed();
 
+protected:
+    void paintEvent(QPaintEvent *event);
+
 private:
     Ui::LogoutWidget *ui;
 };

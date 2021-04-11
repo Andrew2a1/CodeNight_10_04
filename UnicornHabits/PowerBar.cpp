@@ -25,6 +25,6 @@ void PowerBar::paintEvent(QPaintEvent *event)
 
     QPen pen(Qt::black, 1);
     painter.setPen(pen);
-    painter.fillPath(path, QColor(255, 120, 128));
+    painter.fillPath(path, QColor(255-value(), value()+120, 128));
     painter.drawPath(path);
-;}
+}

@@ -6,13 +6,19 @@
 
 #include <QMessageBox>
 
+#include <random>
+
 LoginWidget::LoginWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::LoginWidget)
 {
     ui->setupUi(this);
-    ui->logo->load(QString(":/icons/UnicornHabitsIcon.SVG"));
-    ui->gridLayout->setAlignment(ui->logo, Qt::AlignCenter);
+    srand(time(NULL));
+
+    if(rand() % 2)
+        ui->logo->setPixmap(QPixmap(":/icons/start2.png"));
+    else
+        ui->logo->setPixmap(QPixmap(":/icons/unistart.png"));
 }
 
 LoginWidget::~LoginWidget()

@@ -17,6 +17,7 @@ class HabitWidget : public QWidget
 private:
     Ui::HabitWidget *ui;
     std::shared_ptr<Habit> habit;
+    bool isPressed = false;
 
 public:
     explicit HabitWidget(std::shared_ptr<Habit> habit,
@@ -31,6 +32,9 @@ signals:
 
 protected:
     void mousePressEvent(QMouseEvent *event) override;
+    void mouseReleaseEvent(QMouseEvent *event) override;
+    void paintEvent(QPaintEvent *event) override;
+
 };
 
 #endif // HABITWIDGET_H

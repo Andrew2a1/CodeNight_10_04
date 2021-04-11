@@ -1,5 +1,14 @@
 <RCC>
     <qresource prefix="/icons">
         <file>UnicornHabitsIcon.SVG</file>
+        <file>unistart.png</file>
+        <file>start1.png</file>
+        <file>start2.png</file>
+        <file>dead.png</file>
+        <file>stage2.png</file>
+        <file>stage3.png</file>
+        <file>stage4.png</file>
+        <file>settings.png</file>
     </qresource>
+    <qresource prefix="/"/>
 </RCC>

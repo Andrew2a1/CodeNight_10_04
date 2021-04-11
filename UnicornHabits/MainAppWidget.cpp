@@ -68,7 +68,7 @@ int MainAppWidget::getStage() const
 {
     if(ui->powerProgress->value() == 0)
         return 1;
-    if(ui->powerProgress->value() < 33)
+    else if(ui->powerProgress->value() < 33)
         return 2;
     else if(ui->powerProgress->value() < 66)
         return 3;
@@ -85,6 +85,24 @@ void MainAppWidget::updateHabits()
 
     Unicorn *unicorn = user->getUnicorn();
     ui->powerProgress->setValue(unicorn->getPower());
+
+    switch (getStage())
+    {
+    case 1:
+        ui->unicornLabel->setPixmap(QPixmap(":/icons/dead.png"));
+        break;
+    case 2:
+        ui->unicornLabel->setPixmap(QPixmap(":/icons/stage2.png"));
+        break;
+    case 3:
+        ui->unicornLabel->setPixmap(QPixmap(":/icons/stage3.png"));
+        break;
+    default:
+        ui->unicornLabel->setPixmap(QPixmap(":/icons/stage4.png"));
+        break;
+    }
+
+
 }
 
 void MainAppWidget::acceptHabit(std::shared_ptr<Habit> habit)
@@ -117,7 +135,7 @@ void MainAppWidget::acceptHabit(std::shared_ptr<Habit> habit)
 void MainAppWidget::addPowerPoints(int points)
 {
     Unicorn *unicorn = user->getUnicorn();
-    unicorn->addPower(points);
+    unicorn->addPower(2*points);
 
     ui->powerProgress->setValue(unicorn->getPower());
 }
