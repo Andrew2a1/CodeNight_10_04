@@ -9,6 +9,9 @@
 #include <QPaintEvent>
 #include <QPainterPath>
 
+#include "HabitFinishedDialog.h"
+#include "HabitAmountDialog.h"
+
 QString fromRepeatPeriod(RepeatPeriod period)
 {
     switch (period)
@@ -18,7 +21,7 @@ QString fromRepeatPeriod(RepeatPeriod period)
     case RepeatPeriod::Everyweek:
         return "Everyweek";
     default:
-        return "";
+        return "Once";
     }
 }
 
@@ -61,31 +64,18 @@ std::shared_ptr<Habit> HabitWidget::getHabit() const
 
 void HabitWidget::refresh()
 {
-    //ui->nameLabel->setText(habit->getName());
-    //ui->deadlineLabel->setText(habit->getDeadline().toString(Qt::DateFormat::DefaultLocaleShortDate));
-   // ui->repeatLabel->setText(fromRepeatPeriod(habit->getRepeatPeriod()));
-
-    if(habit->getAmountUnit() != AmountUnit::None) {
-       // ui->amountLabel->setText("Amount: " +
-                                 //QString::number(habit->getAmount()) + " " +
-                                 //fromAmountUnits(habit->getAmountUnit()));
-    }
-    else {
-        //ui->amountLabel->setText("");
-    }
-    switch(habit->getAmountUnit()){
+    switch(habit->getAmountUnit()) {
     case AmountUnit::Liters:
         ui->iconLabel->setPixmap(QPixmap(":/icons/drink2.png"));
-
-    break;
+        break;
     case AmountUnit::Hours:
         ui->iconLabel->setPixmap(QPixmap(":/icons/studymode.png"));
         break;
     case AmountUnit::Kcals:
-      ui->iconLabel->setPixmap(QPixmap(":/icons/kcal.png"));
+        ui->iconLabel->setPixmap(QPixmap(":/icons/kcal.png"));
         break;
     case AmountUnit::Steps :
-         ui->iconLabel->setPixmap(QPixmap(":/icons/steps.png"));
+        ui->iconLabel->setPixmap(QPixmap(":/icons/steps.png"));
         break;
     default:
         ui->iconLabel->setPixmap(QPixmap(":/icons/todo.png"));
@@ -99,30 +89,44 @@ void HabitWidget::mousePressEvent(QMouseEvent *event)
     if(event->type() == QEvent::MouseButtonPress &&
             event->button() == Qt::LeftButton)
     {
+        QFont font;
+        font.setPointSize(12);
+
         isPressed = true;
 
         if(habit->getAmountUnit() != AmountUnit::None)
         {
-            double value = QInputDialog::getDouble(this, "Question",
-                                                   "How much have you done?",
-                                                   0, 0);
-            if(value > 0)
-                habit->setAmount(std::max(0.0, habit->getAmount() - value));
+            HabitAmountDialog* dialog = new HabitAmountDialog(this);
+            dialog->setName(habit->getName());
+            dialog->setDeadline(habit->getDeadline().toString(Qt::DateFormat::DefaultLocaleShortDate));
+            dialog->setPeriod(fromRepeatPeriod(habit->getRepeatPeriod()));
+            dialog->setAmount(QString::number(habit->getAmount()) + " " +
+                              fromAmountUnits(habit->getAmountUnit()));
 
-            if(habit->getAmount() < 0.001)
+            if (dialog->exec() == QDialog::Accepted)
             {
-                if(habit->getRepeatPeriod() != RepeatPeriod::None)
-                    habit->resetAmount();
-                emit habitDone(habit);
+                double value = dialog->getAmountDone();
+
+                if(value > 0)
+                    habit->setAmount(std::max(0.0, habit->getAmount() - value));
+
+                if(habit->getAmount() < 0.001)
+                {
+                    if(habit->getRepeatPeriod() != RepeatPeriod::None)
+                        habit->resetAmount();
+                    emit habitDone(habit);
+                }
             }
         }
         else
         {
-            QMessageBox::StandardButton reply;
-            reply = QMessageBox::question(this, "Question", "Finished?",
-                                          QMessageBox::Yes | QMessageBox::No);
+            HabitFinishedDialog* dialog = new HabitFinishedDialog(this);
+            dialog->setName(habit->getName());
+            dialog->setDeadline(habit->getDeadline().toString(Qt::DateFormat::DefaultLocaleShortDate));
+            dialog->setPeriod(fromRepeatPeriod(habit->getRepeatPeriod()));
+            dialog->setAmount("");
 
-            if (reply == QMessageBox::Yes) {
+            if (dialog->exec() == QDialog::Accepted) {
                 emit habitDone(habit);
             }
         }
@@ -131,6 +135,21 @@ void HabitWidget::mousePressEvent(QMouseEvent *event)
     }
 
     QWidget::mousePressEvent(event);
+}
+
+QString HabitWidget::getHabitDescription()
+{
+    QString desc = "Name: " + habit->getName() + "\n" +
+            "Deadline: " + habit->getDeadline().toString(Qt::DateFormat::DefaultLocaleShortDate) + "\n" +
+            "RepeatPeriod: " + fromRepeatPeriod(habit->getRepeatPeriod());
+
+    if(habit->getAmountUnit() != AmountUnit::None) {
+        desc += QString("\n") + "Amount: " +
+                QString::number(habit->getAmount()) + " " +
+                fromAmountUnits(habit->getAmountUnit());
+    }
+
+    return desc;
 }
 
 void HabitWidget::mouseReleaseEvent(QMouseEvent *event)
@@ -165,3 +184,5 @@ void HabitWidget::paintEvent(QPaintEvent *event)
 
     QWidget::paintEvent(event);
 }
+
+

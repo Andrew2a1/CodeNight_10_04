@@ -10,7 +10,9 @@ CONFIG += c++11
 
 SOURCES += \
     AddHabitWidget.cpp \
-    HabitSerializer.cpp \
+    HabitAmountDialog.cpp \
+    HabitDescription.cpp \
+    HabitFinishedDialog.cpp \
     HabitWidget.cpp \
     HabitWidgetContainer.cpp \
     LoginWidget.cpp \
@@ -19,7 +21,6 @@ SOURCES += \
     PowerBar.cpp \
     StudyModeWidget.cpp \
     SvgWidget.cpp \
-    dialog.cpp \
     mainwindow.cpp \
     Unicorn.cpp \
     User.cpp \
@@ -28,7 +29,9 @@ SOURCES += \
 
 HEADERS += \
     AddHabitWidget.h \
-    HabitSerializer.h \
+    HabitAmountDialog.h \
+    HabitDescription.h \
+    HabitFinishedDialog.h \
     HabitWidget.h \
     HabitWidgetContainer.h \
     LoginWidget.h \
@@ -39,19 +42,20 @@ HEADERS += \
     SvgWidget.h \
     Unicorn.h \
     User.h \
-    dialog.h \
     mainwindow.h \
     habit.h
 
 FORMS += \
     AddHabitWidget.ui \
+    HabitAmountDialog.ui \
+    HabitDescription.ui \
+    HabitFinishedDialog.ui \
     HabitWidget.ui \
     HabitWidgetContainer.ui \
     LoginWidget.ui \
     LogoutWidget.ui \
     MainAppWidget.ui \
     StudyModeWidget.ui \
-    dialog.ui \
     mainwindow.ui
 
 # Default rules for deployment.

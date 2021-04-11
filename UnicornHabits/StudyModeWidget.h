@@ -33,6 +33,13 @@ signals:
     void returnPressed();
     void studyModePassed(int mark);
 
+
+protected:
+    void paintEvent(QPaintEvent *event);
+
+private:
+    void returnToMain();
+
 };
 
 #endif // STUDYMODEWIDGET_H

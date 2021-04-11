@@ -11,6 +11,9 @@
 #include <QTime>
 #include <QDateTime>
 
+#include <QPainter>
+#include <QMessageBox>
+
 StudyModeWidget::StudyModeWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::StudyModeWidget)
@@ -24,12 +27,24 @@ StudyModeWidget::StudyModeWidget(QWidget *parent) :
             this, &StudyModeWidget::refreshTime);
 
     connect(ui->returnBtn, &QPushButton::clicked,
-            this, [=]()
-    {
+            this, &StudyModeWidget::returnToMain);
+}
+
+void StudyModeWidget::returnToMain()
+{
+    QMessageBox::StandardButton reply;
+
+    reply = QMessageBox::question(this,
+                                  "Stop study mode?",
+                                  "Do you really want to exit?"
+                                  " You will lost some points :(",
+                                  QMessageBox::Yes|QMessageBox::No);
+
+    if (reply == QMessageBox::Yes) {
         isInStudyMode = false;
         refreshTimer->stop();
         emit studyModePassed(-1);
-    });
+    }
 }
 
 StudyModeWidget::~StudyModeWidget()
@@ -98,3 +113,11 @@ void StudyModeWidget::refreshTime()
         emit studyModePassed(1);
     }
 }
+
+void StudyModeWidget::paintEvent(QPaintEvent *event)
+{
+    QPainter painter(this);
+    painter.drawPixmap(0, 0, QPixmap(":/icons/study.png"));
+    QWidget::paintEvent(event);
+}
+

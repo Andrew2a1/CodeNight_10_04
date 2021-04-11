@@ -104,8 +104,6 @@ void MainAppWidget::updateHabits()
         ui->unicornLabel->setPixmap(QPixmap(":/icons/stage4.png"));
         break;
     }
-
-
 }
 
 void MainAppWidget::acceptHabit(std::shared_ptr<Habit> habit)

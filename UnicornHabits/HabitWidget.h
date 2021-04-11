@@ -35,6 +35,9 @@ protected:
     void mouseReleaseEvent(QMouseEvent *event) override;
     void paintEvent(QPaintEvent *event) override;
 
+private:
+    QString getHabitDescription();
+
 };
 
 #endif // HABITWIDGET_H

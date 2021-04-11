@@ -15,6 +15,7 @@
         <file>steps.png</file>
         <file>todo.png</file>
         <file>studymode.png</file>
+        <file>study.png</file>
     </qresource>
     <qresource prefix="/"/>
 </RCC>
