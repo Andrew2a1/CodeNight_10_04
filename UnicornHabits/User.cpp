@@ -66,7 +66,6 @@ void User::deserialize()
     {
         QJsonDocument jsonDoc = QJsonDocument::fromJson(saveFile.readAll());
 
-<<<<<<< Updated upstream
         QJsonObject json = jsonDoc.object();
         QJsonArray array = json["habits"].toArray();
 
@@ -79,8 +78,7 @@ void User::deserialize()
         QJsonObject unicornObject = json["unicorn"].toObject();
         unicorn.deserialize(unicornObject);
     }
-=======
-}
+
 else{}
->>>>>>> Stashed changes
+
 }
