@@ -78,4 +78,7 @@ void User::deserialize()
         QJsonObject unicornObject = json["unicorn"].toObject();
         unicorn.deserialize(unicornObject);
     }
+
+else{}
+
 }
