@@ -19,6 +19,7 @@ SOURCES += \
     PowerBar.cpp \
     StudyModeWidget.cpp \
     SvgWidget.cpp \
+    dialog.cpp \
     mainwindow.cpp \
     Unicorn.cpp \
     User.cpp \
@@ -38,6 +39,7 @@ HEADERS += \
     SvgWidget.h \
     Unicorn.h \
     User.h \
+    dialog.h \
     mainwindow.h \
     habit.h
 
@@ -49,6 +51,7 @@ FORMS += \
     LogoutWidget.ui \
     MainAppWidget.ui \
     StudyModeWidget.ui \
+    dialog.ui \
     mainwindow.ui
 
 # Default rules for deployment.

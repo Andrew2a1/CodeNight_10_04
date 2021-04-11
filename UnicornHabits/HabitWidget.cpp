@@ -61,17 +61,34 @@ std::shared_ptr<Habit> HabitWidget::getHabit() const
 
 void HabitWidget::refresh()
 {
-    ui->nameLabel->setText(habit->getName());
-    ui->deadlineLabel->setText(habit->getDeadline().toString(Qt::DateFormat::DefaultLocaleShortDate));
-    ui->repeatLabel->setText(fromRepeatPeriod(habit->getRepeatPeriod()));
+    //ui->nameLabel->setText(habit->getName());
+    //ui->deadlineLabel->setText(habit->getDeadline().toString(Qt::DateFormat::DefaultLocaleShortDate));
+   // ui->repeatLabel->setText(fromRepeatPeriod(habit->getRepeatPeriod()));
 
     if(habit->getAmountUnit() != AmountUnit::None) {
-        ui->amountLabel->setText("Amount: " +
-                                 QString::number(habit->getAmount()) + " " +
-                                 fromAmountUnits(habit->getAmountUnit()));
+       // ui->amountLabel->setText("Amount: " +
+                                 //QString::number(habit->getAmount()) + " " +
+                                 //fromAmountUnits(habit->getAmountUnit()));
     }
     else {
-        ui->amountLabel->setText("");
+        //ui->amountLabel->setText("");
+    }
+    switch(habit->getAmountUnit()){
+    case AmountUnit::Liters:
+        ui->iconLabel->setPixmap(QPixmap(":/icons/drink2.png"));
+
+    break;
+    case AmountUnit::Hours:
+        ui->iconLabel->setPixmap(QPixmap(":/icons/studymode.png"));
+        break;
+    case AmountUnit::Kcals:
+      ui->iconLabel->setPixmap(QPixmap(":/icons/kcal.png"));
+        break;
+    case AmountUnit::Steps :
+         ui->iconLabel->setPixmap(QPixmap(":/icons/steps.png"));
+        break;
+    default:
+        ui->iconLabel->setPixmap(QPixmap(":/icons/todo.png"));
     }
 
     setMinimumWidth(sizeHint().width());
